@@ -1,0 +1,18 @@
+:root {
+    --primary-color: #007bff;
+    --background-light: #ffffff;
+    --background-dark: #333333;
+    --text-light: #ffffff;
+    --text-dark: #000000;
+  }
+  
+  [data-theme='light'] {
+    background-color: var(--background-light);
+    color: var(--text-dark);
+  }
+  
+  [data-theme='dark'] {
+    background-color: var(--background-dark);
+    color: var(--text-light);
+  }
+  

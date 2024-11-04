@@ -1,0 +1,48 @@
+/* About.css */
+
+.about-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .about-container h1 {
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+    text-align: center;
+  }
+  
+  .about-container p {
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+  }
+  
+  .about-container ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .about-container ul li {
+    margin-bottom: 15px;
+    padding-left: 20px;
+    position: relative;
+  }
+  
+  .about-container ul li:before {
+    content: '✔️';
+    position: absolute;
+    left: 0;
+    color: #28a745;
+  }
+  
+  .about-container a {
+    color: #007bff;
+  }
+  
+  .about-container a:hover {
+    text-decoration: underline;
+  }
+  
