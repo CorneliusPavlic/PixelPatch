@@ -1,0 +1,35 @@
+/* HeaderFooter.css */
+
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 15px 20px;
+  }
+  
+  header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  header nav a {
+    color: white;
+    margin-left: 15px;
+    font-weight: bold;
+  }
+  
+  header nav a:hover {
+    text-decoration: underline;
+  }
+  
+  footer {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 15px 0;
+    color: #6c757d;
+  }
+  
+  footer p {
+    margin: 0;
+  }
+  

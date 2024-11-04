@@ -1,0 +1,30 @@
+/* Home.css */
+
+.home-container {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .home-container h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+  
+  .home-container p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+  }
+  
+  .create-post-btn {
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: #fff;
+    text-transform: uppercase;
+  }
+  
+  .create-post-btn:hover {
+    background-color: #218838;
+  }
+  
