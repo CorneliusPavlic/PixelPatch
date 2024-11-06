@@ -1,20 +1,19 @@
-import React, {useState, useImperativeHandle, forwardRef } from "react";
+import React, {useState, useEffect, useImperativeHandle, forwardRef } from "react";
 
 
 
 const Drawing = forwardRef(({initialGrid = {}, rowSize=10, columnSize = 10}, ref) => {
     const cellSize = 25;
+
     // Handles Colors
     const [selectedColor, setSelectedColor] = useState("#000");
-    const colors = ["#000", "#FF5733", "#33FF57", "#3357FF", "#F9A825", "#8E24AA"]; // List of available colors (change later based on level?)
+    const colors = ["#000", "#FF0000", "#33FF57", "#3357FF", "#F9A825", "#8E24AA", "#fff"]; // List of available colors (change later based on level?)
     const defaultCellColor = "#fff";
+
     // Handles draw or view mode
     const [mode, setMode] = useState("draw");
 
-    
-
     // Handles grid
-
     const getKey = (row, col) => { // Gets key based on row and column
         return `${row}-${col}`;
     }
@@ -34,9 +33,10 @@ const Drawing = forwardRef(({initialGrid = {}, rowSize=10, columnSize = 10}, ref
         }
         return newGrid;
     };
-
     const [grid, setGrid] = useState(() => initializeGrid(initialGrid, rowSize, columnSize, defaultCellColor));
 
+    // Keeps track of whether the user is pressing and holding
+    const [isDrawing, setIsDrawing] = useState(false);
 
     // Generate the grid to be displayed on screen
     const generateGrid = () => {
@@ -48,6 +48,8 @@ const Drawing = forwardRef(({initialGrid = {}, rowSize=10, columnSize = 10}, ref
                 gridCells.push(
                     <div
                         key={key} // Use flat index as the key
+                        onMouseDown={(e) => handleMouseDown(e,row, col)}
+                        onMouseEnter={(e) => handleCellInteraction(row, col)}
                         onClick={() => mode === "draw" && onCellClick(row, col)}
                         style={{
                         width: `${cellSize}px`,
@@ -56,25 +58,47 @@ const Drawing = forwardRef(({initialGrid = {}, rowSize=10, columnSize = 10}, ref
                         display: 'inline-block',
                         backgroundColor: cellColor,
                         }}
-                    />
-
-                )
-            }
-        }
+        />)}}
         return gridCells;
-      };
+    };
 
-      // Handles clicking on a grid cell -> changes to selected color
-      const onCellClick = (row,col) => {
+    // Handles clicking on a grid cell -> changes to selected color
+    const onCellClick = (row,col) => {
         const cellKey = getKey(row, col);
         const newGrid = {...grid};
         newGrid[cellKey]  = selectedColor;
         setGrid(newGrid);
-        console.log(grid);
-      }
+    }
+
+    // Handle mouse holding + dragging
+    const handleGlobalMouseUp = () => {
+        setIsDrawing(false);
+    };
+
+    const handleCellInteraction = (row, col) => {
+        if (mode === "draw" && isDrawing) {
+            onCellClick(row, col)
+        }
+    };
+
+    const handleMouseDown = (e, row, col) => {
+        e.preventDefault();
+        setIsDrawing(true); // User starts pressing the mouse
+        handleCellInteraction(row, col);
+    };
+        
+    useEffect(() => {
+        // Add mouseup event listener to the document
+        document.addEventListener("mouseup", handleGlobalMouseUp);
+    
+        // Cleanup on component unmount
+        return () => {
+          document.removeEventListener("mouseup", handleGlobalMouseUp);
+        };
+      }, []);
 
       // Clears the grid
-      const clearGridData = () => {
+    const clearGridData = () => {
         const newGrid = {};
         for(let row = 0; row < rowSize; row++){
             for(let col = 0; col < columnSize; col++){
@@ -86,12 +110,12 @@ const Drawing = forwardRef(({initialGrid = {}, rowSize=10, columnSize = 10}, ref
       }
 
       // Makes getGridData() and clearGridData() visible to the parent
-      useImperativeHandle(ref, () => ({
+    useImperativeHandle(ref, () => ({
         getGridData: () => grid,
         clearGridData,
       }));
 
-      return (
+    return (
         <div style={{display: "flex", alignItems: "flex-start", gap: "20px"}}>
             {/* Color palette */}
             <div style={{display: "flex", flexDirection: "column", gap: "10px"}} >
