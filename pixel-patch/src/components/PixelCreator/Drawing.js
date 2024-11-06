@@ -1,0 +1,124 @@
+import React, {useState, useImperativeHandle, forwardRef } from "react";
+
+
+
+const Drawing = forwardRef(({initialGrid = {}, rowSize=10, columnSize = 10}, ref) => {
+    const cellSize = 25;
+    // Handles Colors
+    const [selectedColor, setSelectedColor] = useState("#000");
+    const colors = ["#000", "#FF5733", "#33FF57", "#3357FF", "#F9A825", "#8E24AA"]; // List of available colors (change later based on level?)
+    const defaultCellColor = "#fff";
+    // Handles draw or view mode
+    const [mode, setMode] = useState("draw");
+
+    
+
+    // Handles grid
+
+    const getKey = (row, col) => { // Gets key based on row and column
+        return `${row}-${col}`;
+    }
+
+    const initializeGrid = (initialGrid, rowSize, columnSize, defaultCellColor) => {
+        // Initial grid already given to us
+        if(Object.keys(initialGrid).length > 0){
+            return initialGrid;
+        }
+        // No initial grid -> create default
+        const newGrid = {};
+        for(let row = 0; row < rowSize; row++){
+            for(let col = 0; col < columnSize; col++){
+                const cellKey = getKey(row, col);
+                newGrid[cellKey] = initialGrid[cellKey] || defaultCellColor;
+            }
+        }
+        return newGrid;
+    };
+
+    const [grid, setGrid] = useState(() => initializeGrid(initialGrid, rowSize, columnSize, defaultCellColor));
+
+
+    // Generate the grid to be displayed on screen
+    const generateGrid = () => {
+        const gridCells = [];
+        for(let row = 0; row < rowSize; row++){
+            for(let col = 0; col < columnSize; col++){
+                const key = `${row}-${col}`;
+                const cellColor = grid[key];
+                gridCells.push(
+                    <div
+                        key={key} // Use flat index as the key
+                        onClick={() => mode === "draw" && onCellClick(row, col)}
+                        style={{
+                        width: `${cellSize}px`,
+                        height: `${cellSize}px`,
+                        border: '1px solid #ccc',
+                        display: 'inline-block',
+                        backgroundColor: cellColor,
+                        }}
+                    />
+
+                )
+            }
+        }
+        return gridCells;
+      };
+
+      // Handles clicking on a grid cell -> changes to selected color
+      const onCellClick = (row,col) => {
+        const cellKey = getKey(row, col);
+        const newGrid = {...grid};
+        newGrid[cellKey]  = selectedColor;
+        setGrid(newGrid);
+        console.log(grid);
+      }
+
+      // Clears the grid
+      const clearGridData = () => {
+        const newGrid = {};
+        for(let row = 0; row < rowSize; row++){
+            for(let col = 0; col < columnSize; col++){
+                const key = getKey(row, col);
+                newGrid[key] = defaultCellColor;
+            }
+        }
+        setGrid(newGrid);
+      }
+
+      // Makes getGridData() and clearGridData() visible to the parent
+      useImperativeHandle(ref, () => ({
+        getGridData: () => grid,
+        clearGridData,
+      }));
+
+      return (
+        <div style={{display: "flex", alignItems: "flex-start", gap: "20px"}}>
+            {/* Color palette */}
+            <div style={{display: "flex", flexDirection: "column", gap: "10px"}} >
+                { colors.map((color) => (
+                    <div
+                        key={color}
+                        onClick={() => setSelectedColor(color)}
+                        style={{
+                            width: "30px",
+                            height: "30px",
+                            backgroundColor: color,
+                            cursor: "pointer",
+                            borderRadius: "50%",
+                            border: selectedColor === color ? "4px solid #000" : "2px solid #999", // Highlight selected
+                        }}
+                    />
+                ))}
+            </div>
+            {/* Grid */}
+            <div>
+                <div style={{ display: 'grid', gridTemplateColumns: `repeat(${columnSize}, ${cellSize}px)` }}>
+                    {generateGrid()}
+                </div>
+            </div>
+      </div>
+      );
+});
+
+
+export default Drawing;

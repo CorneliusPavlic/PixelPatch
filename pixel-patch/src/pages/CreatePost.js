@@ -1,16 +1,25 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import '../styles/CreatePost.css'; // Assuming styles are in a separate CSS file
+import Drawing from '../components/PixelCreator/Drawing';
 
 const CreatePost = () => {
   const [title, setTitle] = useState('');
   const [tags, setTags] = useState('');
   const [canvasData, setCanvasData] = useState(''); // Placeholder for canvas data
   const [statusMessage, setStatusMessage] = useState('');
+  const drawingRef = useRef();
 
   const handlePost = () => {
     // Logic for posting the pixel art
-    setStatusMessage('Post successfully created!');
-    clearCanvas();
+    if(drawingRef.current){
+      const gridData = drawingRef.current.getGridData();
+      setCanvasData(gridData);
+      setStatusMessage('Post successfully created!');
+      clearCanvas();
+    } else{
+      setStatusMessage('Error with creating post')
+    }
+    
   };
 
   const handleArchive = () => {
@@ -30,6 +39,11 @@ const CreatePost = () => {
     setTitle('');
     setTags('');
     setCanvasData(''); // Reset canvas data
+    if(drawingRef.current){
+      drawingRef.current.clearGridData();
+    } else {
+      setStatusMessage('Error clearing canvas.');
+    }
   };
 
   return (
@@ -56,8 +70,8 @@ const CreatePost = () => {
         />
       </div>
       <div className="pixel-art-canvas">
+        <Drawing ref={drawingRef}/>
         {/* Placeholder for canvas component */}
-        <p>Canvas goes here (Implement drawing tool)</p>
       </div>
       <div className="actions">
         <button onClick={handlePost}>Post</button>
