@@ -116,9 +116,15 @@ const Drawing = forwardRef(({initialGrid = {}, rowSize=10, columnSize = 10}, ref
       }));
 
     return (
-        <div style={{display: "flex", alignItems: "flex-start", gap: "20px"}}>
+        <div style={{display: "flex", justifyContent: "center", alignItems: "center", gap: "10px", width: "100%"}}>
             {/* Color palette */}
-            <div style={{display: "flex", flexDirection: "column", gap: "10px"}} >
+            <div style=
+                {{
+                    display: "grid", 
+                    gap: "10px",
+                    gridTemplateColumns: "repeat(2, 30px)",
+                    alignItems: "flex-start",
+                }} >
                 { colors.map((color) => (
                     <div
                         key={color}
@@ -129,14 +135,24 @@ const Drawing = forwardRef(({initialGrid = {}, rowSize=10, columnSize = 10}, ref
                             backgroundColor: color,
                             cursor: "pointer",
                             borderRadius: "50%",
-                            border: selectedColor === color ? "4px solid #000" : "2px solid #999", // Highlight selected
+                            border: selectedColor === color 
+                                ? (color === "#000" ? "4px solid #fff" : "4px solid #000")
+                                : "2px solid #999", // Highlight selected
+                            boxShadow: selectedColor === color ? "0px 0px 10px rgba(0,0,0,0.2)": "none",
                         }}
                     />
                 ))}
             </div>
             {/* Grid */}
-            <div>
-                <div style={{ display: 'grid', gridTemplateColumns: `repeat(${columnSize}, ${cellSize}px)` }}>
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center"}}>
+                <div style={{ 
+                        display: 'grid', 
+                        gridTemplateColumns: `repeat(${columnSize}, ${cellSize}px)` ,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        maxWidth: "300px",
+                        margin: "0 auto",
+                    }}>
                     {generateGrid()}
                 </div>
             </div>
