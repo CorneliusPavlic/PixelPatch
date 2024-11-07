@@ -136,9 +136,11 @@ const Drawing = forwardRef(({initialGrid = {}, rowSize=10, columnSize = 10}, ref
                             cursor: "pointer",
                             borderRadius: "50%",
                             border: selectedColor === color 
-                                ? (color === "#000" ? "4px solid #fff" : "4px solid #000")
+                                ? (color === "#000" ? "3px solid #fff" : "3px solid #000")
                                 : "2px solid #999", // Highlight selected
                             boxShadow: selectedColor === color ? "0px 0px 10px rgba(0,0,0,0.2)": "none",
+                            transform: selectedColor === color ? "scale(1.4)" : "scale(1)", // Scale
+                            transition: "transform 0.2s ease, box-shadow 0.2s ease", // Transition for scale and shadow
                         }}
                     />
                 ))}
