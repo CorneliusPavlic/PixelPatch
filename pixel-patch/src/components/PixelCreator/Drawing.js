@@ -118,15 +118,17 @@ const Drawing = forwardRef(({initialGrid = {}, rowSize=15, columnSize = 15}, ref
       }));
 
     return (
-        <div style={{display: "flex", justifyContent: "center", alignItems: "center", gap: "10px", width: "100%"}}>
+        <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: "0px", width: "100%"}}>
             {/* Color palette */}
-            <div style=
-                {{
-                    display: "grid", 
-                    gap: "10px",
-                    gridTemplateColumns: "repeat(2, 30px)",
-                    alignItems: "flex-start",
-                }} >
+
+            <div style={{ display:"flex", justifyContent: "center", alignItems: "center", gap: "10px" }} >
+                <div style=
+                    {{
+                        display: "grid", 
+                        gap: "10px",
+                        gridTemplateColumns: "repeat(2, 30px)",
+                        alignItems: "flex-start",
+                    }} >
                 { colors.map((color) => (
                     <div
                         key={color}
@@ -136,7 +138,7 @@ const Drawing = forwardRef(({initialGrid = {}, rowSize=15, columnSize = 15}, ref
                             height: "30px",
                             backgroundColor: color,
                             cursor: "pointer",
-                            borderRadius: "50%",
+                            borderRadius: "500%",
                             border: selectedColor === color 
                                 ? (color === "#000" ? "3px solid #fff" : "3px solid #000")
                                 : "2px solid #999", // Highlight selected
@@ -148,28 +150,25 @@ const Drawing = forwardRef(({initialGrid = {}, rowSize=15, columnSize = 15}, ref
                 ))}
             </div>
             {/* Grid */}
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center"}}>
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "40px"}}>
                 <div style={{ 
                         display: 'grid', 
                         gridTemplateColumns: `repeat(${columnSize}, ${cellSize}px)` ,
-                        justifyContent: "center",
-                        alignItems: "center",
-                        maxWidth: "300px",
-                        margin: "0 auto",
                         border: "2px solid #000",
                     }}>
                     {generateGrid()}
                 </div>
             </div>
+            </div>
+
             {/* Toggle button for grid lines */}
-            <div style={{ marginTop: "10px" }} >
+            <div style={{ marginTop: "10px", width: "28%", textAlign: "left"}} >
                 <label className="switch">
                     <span>Show Lines</span>
                     <input
                         type="checkbox"
                         checked={showGridLines}
                         onChange={() => setShowGridLines((prev) => !prev)}
-                        style = {{marginLeft: "8px" }}
                     />
                     <span className="slider" />
                 </label>
