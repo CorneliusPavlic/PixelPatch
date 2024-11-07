@@ -1,9 +1,9 @@
 import React, {useState, useEffect, useImperativeHandle, forwardRef } from "react";
+import '../../styles/Drawing.css';
 
 
-
-const Drawing = forwardRef(({initialGrid = {}, rowSize=10, columnSize = 10}, ref) => {
-    const cellSize = 25;
+const Drawing = forwardRef(({initialGrid = {}, rowSize=15, columnSize = 15}, ref) => {
+    const cellSize = 18;
 
     // Handles Colors
     const [selectedColor, setSelectedColor] = useState("#000");
@@ -14,6 +14,8 @@ const Drawing = forwardRef(({initialGrid = {}, rowSize=10, columnSize = 10}, ref
     const [mode, setMode] = useState("draw");
 
     // Handles grid
+    const [showGridLines, setShowGridLines] = useState(true); // visible grid lines
+
     const getKey = (row, col) => { // Gets key based on row and column
         return `${row}-${col}`;
     }
@@ -46,7 +48,7 @@ const Drawing = forwardRef(({initialGrid = {}, rowSize=10, columnSize = 10}, ref
                 const key = `${row}-${col}`;
                 const cellColor = grid[key];
                 gridCells.push(
-                    <div
+                    <div 
                         key={key} // Use flat index as the key
                         onMouseDown={(e) => handleMouseDown(e,row, col)}
                         onMouseEnter={(e) => handleCellInteraction(row, col)}
@@ -54,9 +56,9 @@ const Drawing = forwardRef(({initialGrid = {}, rowSize=10, columnSize = 10}, ref
                         style={{
                         width: `${cellSize}px`,
                         height: `${cellSize}px`,
-                        border: '1px solid #ccc',
                         display: 'inline-block',
                         backgroundColor: cellColor,
+                        border: showGridLines ? '1px solid #ccc' : 'none',
                         }}
         />)}}
         return gridCells;
@@ -154,9 +156,23 @@ const Drawing = forwardRef(({initialGrid = {}, rowSize=10, columnSize = 10}, ref
                         alignItems: "center",
                         maxWidth: "300px",
                         margin: "0 auto",
+                        border: "2px solid #000",
                     }}>
                     {generateGrid()}
                 </div>
+            </div>
+            {/* Toggle button for grid lines */}
+            <div style={{ marginTop: "10px" }} >
+                <label className="switch">
+                    <span>Show Lines</span>
+                    <input
+                        type="checkbox"
+                        checked={showGridLines}
+                        onChange={() => setShowGridLines((prev) => !prev)}
+                        style = {{marginLeft: "8px" }}
+                    />
+                    <span className="slider" />
+                </label>
             </div>
       </div>
       );
