@@ -118,63 +118,84 @@ const Drawing = forwardRef(({initialGrid = {}, rowSize=15, columnSize = 15}, ref
       }));
 
     return (
-        <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: "0px", width: "100%"}}>
+        <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", gap: "10px" }}>
             {/* Color palette */}
-
-            <div style={{ display:"flex", justifyContent: "center", alignItems: "center", gap: "10px" }} >
-                <div style=
-                    {{
-                        display: "grid", 
-                        gap: "10px",
-                        gridTemplateColumns: "repeat(2, 30px)",
-                        alignItems: "flex-start",
-                    }} >
-                { colors.map((color) => (
-                    <div
-                        key={color}
-                        onClick={() => setSelectedColor(color)}
-                        style={{
-                            width: "30px",
-                            height: "30px",
-                            backgroundColor: color,
-                            cursor: "pointer",
-                            borderRadius: "500%",
-                            border: selectedColor === color 
-                                ? (color === "#000" ? "3px solid #fff" : "3px solid #000")
-                                : "2px solid #999", // Highlight selected
-                            boxShadow: selectedColor === color ? "0px 0px 10px rgba(0,0,0,0.2)": "none",
-                            transform: selectedColor === color ? "scale(1.4)" : "scale(1)", // Scale
-                            transition: "transform 0.2s ease, box-shadow 0.2s ease", // Transition for scale and shadow
-                        }}
-                    />
-                ))}
-            </div>
-            {/* Grid */}
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "40px"}}>
-                <div style={{ 
-                        display: 'grid', 
-                        gridTemplateColumns: `repeat(${columnSize}, ${cellSize}px)` ,
-                        border: "2px solid #000",
-                    }}>
-                    {generateGrid()}
+            <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center",}}>
+                <div style={{
+                    display: "grid",
+                    gap: "10px",
+                    gridTemplateColumns: "repeat(2, 30px)",
+                    alignItems: "flex-start",
+                }} >
+                    {colors.map((color) => (
+                        <div
+                            key={color}
+                            onClick={() => setSelectedColor(color)}
+                            style={{
+                                width: "30px",
+                                height: "30px",
+                                backgroundColor: color,
+                                cursor: "pointer",
+                                borderRadius: "500%",
+                                border: selectedColor === color
+                                    ? (color === "#000" ? "3px solid #fff" : "3px solid #000")
+                                    : "2px solid #999", // Highlight selected
+                                boxShadow: selectedColor === color ? "0px 0px 10px rgba(0,0,0,0.2)" : "none",
+                                transform: selectedColor === color ? "scale(1.4)" : "scale(1)", // Scale
+                                transition: "transform 0.2s ease, box-shadow 0.2s ease", // Transition for scale and shadow
+                            }}
+                        />
+                    ))}
                 </div>
             </div>
-            </div>
 
-            {/* Toggle button for grid lines */}
-            <div style={{ marginTop: "10px", width: "28%", textAlign: "left"}} >
-                <label className="switch">
-                    <span>Show Lines</span>
-                    <input
-                        type="checkbox"
-                        checked={showGridLines}
-                        onChange={() => setShowGridLines((prev) => !prev)}
-                    />
-                    <span className="slider" />
-                </label>
+            {/* Grid & Show lines & Clear Grid */}
+            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center",}}>
+
+                {/* Grid */}
+                <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: `repeat(${columnSize}, ${cellSize}px)`,
+                        border: "2px solid #000",
+                    }}>
+                        {generateGrid()}
+                    </div>
+                </div>
+                {/* Controls below Grid */}
+                <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "30px", marginTop: "10px"}}>
+                    {/* Toggle button for grid lines */}
+                    <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+                        <label className="switch">
+                            <span style={{fontSize: "14px"}}>Show Lines</span>
+                            <input
+                                type="checkbox"
+                                checked={showGridLines}
+                                onChange={() => setShowGridLines((prev) => !prev)}
+                            />
+                            <span className="slider" />
+                        </label>
+                    </div>
+                    {/* Clear button */}
+                    <button
+                        onClick={clearGridData}
+                        style={{
+                            fontSize: "13px",
+                            backgroundColor: "#808080",
+                            transition: "background-color 0.3 ease",
+                        }}
+                        onMouseOver={(e) => e.target.style.backgroundColor = "#d32f2f"}
+                        onMouseOut={(e) => e.target.style.backgroundColor = "#808080"}
+                    >
+                        Clear Grid
+                    </button>
+                </div>
+
+
+
             </div>
-      </div>
-      );
+        </div>
+    );
 });
 
 
