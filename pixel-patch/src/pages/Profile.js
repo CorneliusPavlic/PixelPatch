@@ -1,6 +1,8 @@
 import React from 'react';
 import '../styles/Profile.css';
 const Profile = () => {
+  
+
   return (
     <div className="profile-container">
       <h2>User Profile</h2>
@@ -9,5 +11,6 @@ const Profile = () => {
     </div>
   );
 };
+
 
 export default Profile;
