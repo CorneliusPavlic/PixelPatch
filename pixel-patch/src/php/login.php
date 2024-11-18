@@ -3,15 +3,14 @@ header('Access-Control-Allow-Origin: http://localhost:3000');
 //include '../no_auth/config.inc'; //change file path for config.inc if needed
 // Create connection
 
-
+include "server.php";
 //Define some constants in this PHP code block
-$servername = 'localhost';
+/*$servername = 'localhost';
 $username = 'root'; // Flashline username
 $password = ''; // phpMyAdmin password
 $dbname = 'hic'; // Flashline username
 
-$user = $_POST['Username'];
-$pass = $_POST['Password'];
+
 
 
 //echo ("Hello from server: $user : $pass\n");
@@ -22,10 +21,11 @@ $pass = $_POST['Password'];
    echo "Connection failed: " . $conn->connect_error;
  } else{
     echo "Success!";
- }
+ }*/
 
 
-
+ $user = $_POST['Username'];
+ $pass = $_POST['Password'];
 
 $sqlstatement = $conn->prepare("SELECT ID from user where Username=? and Password=?"); //prepare the statement
 
