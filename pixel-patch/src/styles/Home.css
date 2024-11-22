@@ -1,8 +1,11 @@
 /* Home.css */
 
 .home-container {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
     text-align: center;
-    margin-top: 50px;
+    margin-top: 50px; 
   }
   
   .home-container h1 {
@@ -22,9 +25,22 @@
     background-color: #28a745;
     color: #fff;
     text-transform: uppercase;
+    margin-bottom: 1rem; 
   }
   
   .create-post-btn:hover {
     background-color: #218838;
+  }
+
+  .logo-image{
+    display: block;
+    width: 230px; 
+    height: 107px;
+  }
+
+  .home-container-buttons{
+    display:flex;
+    flex-direction: row; 
+    gap: 1rem; 
   }
   
