@@ -63,6 +63,8 @@ const Home = () => {
       </div>
       <a href="/create-post" className="create-post-btn">Create Post</a>
       <p>Explore the latest posts and create your own pixel art!</p>
+      
+
 
       <div className="posts-container">
         {posts.map((post, index) => (
