@@ -8,25 +8,25 @@ import CreatePost from './pages/CreatePost';
 import About from './pages/About';
 import Header from './components/Layout/Header';
 import Footer from './components/Layout/Footer';
-import Server from './php/server.php';
 import './styles/globals.css'; // Global styles
+import UserProfile from './pages/UserProfile'; // Import the UserProfile component
 
 function App() {
   return (
     <Router>
-      <div className="app-container">
+      <>
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/user-profile/:user_id" element={<UserProfile />} />
           <Route path="/create-post" element={<CreatePost />} />
           <Route path="/about" element={<About />} />
-          <Route path="/server" element={<Server />} />
         </Routes>
         <Footer />
-      </div>
+      </>
     </Router>
   );
 }

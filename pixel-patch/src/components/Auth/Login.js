@@ -1,34 +1,46 @@
 import React, { useState } from 'react';
+import axios from 'axios'; // Import Axios for API requests
 import '../../styles/Auth.css';
-import $ from "jquery";
+
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  
-  const handleLogin = (e) => {
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Add login logic here
-    console.log("Logging in:", { username, password });
-    const form = $(e.target);
-        $.ajax({
-            type: "POST",
-            url: form.attr("action"),
-            data: {"Username": username, "Password" : password},
-            success(data) {
-              console.log(data);
-            },
-        });
+    setError('');
+    setSuccess('');
+
+    try {
+      const response = await axios.post('http://127.0.0.1:5000/login', {
+        username,
+        password,
+      });
+
+      // Store the JWT token
+      localStorage.setItem('accessToken', response.data.access_token);
+
+      setSuccess('Login successful!');
+      console.log('Login Response:', response.data);
+
+      // Redirect user after login if needed
+      // window.location.href = '/profile';
+    } catch (error) {
+      console.error('Error logging in:', error);
+      setError('Invalid username or password. Please try again.');
+    }
   };
 
   return (
     <div className="login-container">
-      
-        <form 
-          action="http://localhost/phpmyadmin/Example/HIC/PixelPatch/pixel-patch/src/php/login.php"
-          method="post"
-          onSubmit={handleLogin}
-        >
+      <form onSubmit={handleLogin}>
         <h2>Login</h2>
+
+        {error && <p className="error">{error}</p>}
+        {success && <p className="success">{success}</p>}
+
         <input
           type="text"
           placeholder="Username"
@@ -45,53 +57,10 @@ const Login = () => {
         />
         <button type="submit">Login</button>
       </form>
-      <p>Don't have an account? <a href="/signup">Sign up</a></p>
+      <p>
+        Don't have an account? <a href="/signup">Sign up</a>
+      </p>
     </div>
-    
-
-    /*
-    const [name, setName] = useState("");
-    const [result, setResult] = useState("");
-
-    const handleChange = (e) => {
-        setName(e.target.value);
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const form = $(e.target);
-        $.ajax({
-            type: "POST",
-            url: form.attr("action"),
-            data: form.serialize(),
-            success(data) {
-                setResult(data);
-            },
-        });
-    };
-    return (
-      <div className="login-container">
-        
-        <form
-          action="http://localhost/phpmyadmin/Example/HIC/PixelPatch/pixel-patch/src/php/server.php"
-          method="post"
-          onSubmit={(event) => handleSubmit(event)}
-        >
-          <label htmlFor="name">Name: </label>
-          <input
-              type="text"
-              id="name"
-              name="name"
-              value={name}
-              onChange={(event) =>
-                  handleChange(event)
-              }
-          />
-          <br />
-          <button type="submit">Submit</button>
-      </form>
-      <h1>{result}</h1>
-      </div>*/
   );
 };
 

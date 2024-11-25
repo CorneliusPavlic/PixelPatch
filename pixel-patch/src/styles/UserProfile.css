@@ -1,0 +1,81 @@
+/* Basic container for the user profile */
+.user-profile-container {
+    padding: 20px;
+    max-width: 1000px;
+    margin: auto;
+    text-align: center;
+  }
+  
+  .user-profile-container h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  
+  /* Styling for the list of posts */
+  .posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  /* Each post container */
+  .post-item {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .post-item h3 {
+    font-size: 22px;
+    margin: 0;
+    font-weight: 600;
+  }
+  
+  .post-item p {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #555;
+  }
+  
+  /* The canvas/grid style */
+  .post-content {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Styling for loading/error messages */
+  .user-profile-container p {
+    font-size: 18px;
+    color: #333;
+    margin-top: 20px;
+  }
+  
+  /* When the user has no posts */
+  .user-profile-container .no-posts {
+    font-size: 18px;
+    color: #888;
+    margin-top: 20px;
+  }
+  
+  /* Style for status messages (like errors or success messages) */
+  .user-profile-container .status-message {
+    font-size: 16px;
+    color: #f44336; /* Red color for error messages */
+    margin-top: 10px;
+  }
+  
+  /* Styling for user profile image or avatar (optional, if available) */
+  .profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto;
+    display: block;
+  }
+  
+  

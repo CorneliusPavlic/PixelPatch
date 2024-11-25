@@ -1,69 +1,81 @@
 import React, { useState } from 'react';
+import axios from 'axios'; // Axios for API calls
 import '../../styles/Auth.css';
-import $ from "jquery";
 
 const Signup = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [theme, setTheme] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
+    setError('');
+    setSuccess('');
+
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      setError('Passwords do not match');
       return;
     }
-    // Add signup logic here
-    console.log("Signing up:", { username, email, password, theme });
-    const form = $(e.target);
-        $.ajax({
-            type: "POST",
-            url: form.attr("action"),
-            data: {"Username": username,"Email": email, "Password" : password, "Theme": theme},
-            success(data) {
-              console.log("Signed Up:", data);
-            },
-        });
+
+    try {
+      const response = await axios.post('http://127.0.0.1:5000/signup', {
+        username,
+        email,
+        password,
+      });
+
+      setSuccess('Account created successfully! You can now log in.');
+      console.log('Signup Response:', response.data);
+
+      // Clear form fields
+      setUsername('');
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+    } catch (error) {
+      console.error('Error signing up:', error);
+      setError('Signup failed. Please try again.');
+    }
   };
 
   return (
     <div className="signup-container">
-      <form 
-      action="http://localhost/phpmyadmin/Example/HIC/PixelPatch/pixel-patch/src/php/signup.php"
-      method="post"
-      onSubmit={handleSignup}>
+      <form onSubmit={handleSignup}>
         <h2>Sign Up</h2>
+
+        {error && <p className="error">{error}</p>}
+        {success && <p className="success">{success}</p>}
+
         <input
           type="text"
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          required
         />
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
         <input
           type="password"
           placeholder="Confirm Password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
-        />
-        <input
-          type="theme"
-          placeholder="Theme"
-          value={theme}
-          onChange={(e) => setTheme(e.target.value)}
+          required
         />
         <button type="submit">Create Account</button>
       </form>
