@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios'; // Ensure axios is installed
 import '../styles/Home.css';
 import { Link } from 'react-router-dom';  // Add this to handle navigation
+import logo from '../assets/logoNoBorder.png';
 import Drawing from '../components/PixelCreator/Drawing';
 
 const Home = () => {
@@ -54,9 +55,14 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <h1>Welcome to PixelPatch</h1>
-      <p>Explore the latest posts and create your own pixel art!</p>
+      <img src={logo} alt="logo" class="logo-image" />
+      <div className = "home-container-buttons">
+        <a href="/login" className="create-post-btn">login</a>
+        <a href="/signup" className="create-post-btn">signup</a>
+        <a href="/about" className="create-post-btn">about</a>
+      </div>
       <a href="/create-post" className="create-post-btn">Create Post</a>
+      <p>Explore the latest posts and create your own pixel art!</p>
 
       <div className="posts-container">
         {posts.map((post, index) => (
