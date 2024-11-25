@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import '../styles/CreatePost.css'; // Assuming styles are in a separate CSS file
 import Drawing from '../components/PixelCreator/Drawing';
+import $ from "jquery";
 
 const CreatePost = () => {
   const [title, setTitle] = useState('');
@@ -14,7 +15,24 @@ const CreatePost = () => {
     if(drawingRef.current){
       const gridData = drawingRef.current.getGridData();
       setCanvasData(gridData);
-      setStatusMessage('Post successfully created!');
+      $.ajax({
+        type: "POST",
+        url: 'http://localhost/phpmyadmin/Example/HIC/PixelPatch/pixel-patch/src/php/submitPost.php',
+        dataType: 'json',
+        data: {"title": title, "dataSend": gridData, "hashtags": tags, "userID": 5},
+        success: function(data) {
+          // Do something with the response data
+          console.log('Success:',data);
+        },
+        error: function(error) {
+          // Handle errors
+          console.error('Error:', error);
+        }
+        
+                
+      });
+      //console.log(gridData);
+      
       clearCanvas();
     } else{
       setStatusMessage('Error with creating post')
