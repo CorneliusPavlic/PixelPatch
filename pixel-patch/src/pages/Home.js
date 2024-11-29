@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios'; // Ensure axios is installed
 import '../styles/Home.css';
-import '../styles/theme.css';
 //for the theme toggle
-import { Toggle } from '../components/Theme-toggle/theme-toggle'
 import { Link } from 'react-router-dom';  // Add this to handle navigation
 import logo from '../assets/logoNoBorder.png';
 import Drawing from '../components/PixelCreator/Drawing';
@@ -13,9 +11,6 @@ const Home = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-
-  //for the light/dark toggle
-  const [isDark, setIsDark] = useState(true);
 
   // Fetch posts from the backend
   const fetchPosts = useCallback(async () => {
@@ -60,15 +55,8 @@ const Home = () => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    //need to find a place to put the data-theme logic so it affects the whole site, not just some div
-    <div className="home-container" data-theme = { isDark ? "dark" : "light" } >
+    <div className="home-container" >
       <img src={logo} alt="logo" class="logo-image" />
-      {/* likely will move to the header */}
-      <Toggle 
-        isChecked={isDark}
-        handleChange={() => setIsDark(!isDark)}
-      />
-
       <div className = "home-container-buttons">
         <a href="/login" className="create-post-btn">login</a>
         <a href="/signup" className="create-post-btn">signup</a>
