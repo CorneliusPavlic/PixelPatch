@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios'; // Ensure axios is installed
 import '../styles/Home.css';
-//for the theme toggle
+import '../styles/theme.css'; 
 import { Link } from 'react-router-dom';  // Add this to handle navigation
 import logo from '../assets/logoNoBorder.png';
 import Drawing from '../components/PixelCreator/Drawing';
@@ -58,11 +58,11 @@ const Home = () => {
     <div className="home-container" >
       <img src={logo} alt="logo" class="logo-image" />
       <div className = "home-container-buttons">
-        <a href="/login" className="create-post-btn">login</a>
-        <a href="/signup" className="create-post-btn">signup</a>
-        <a href="/about" className="create-post-btn">about</a>
+        <a href="/login" className="main-btn" data-theme = "btnlight" >login</a>
+        <a href="/signup" className="main-btn" data-theme = "btnlight">signup</a>
+        <a href="/about" className="main-btn" data-theme = "btnlight">about</a>
       </div>
-      <a href="/create-post" className="create-post-btn">Create Post</a>
+      <a href="/create-post"className="main-btn" data-theme = "btnlight">create post</a>
       <p>Explore the latest posts and create your own pixel art!</p>
       
       <div className="posts-container">
