@@ -126,14 +126,6 @@ const Drawing = forwardRef(
       getGridData: () => grid,
       clearGridData,
     }));
-    /*const fillButton = () => {
-      if(fillToggle){fillToggle = false;}
-      else{fillToggle = true;}
-    }*/
-    /*const fillButtonStyle = document.querySelector('.fillButtonStyle');
-    fillButtonStyle.addEventListener('click', () => {
-    fillButtonStyle.classList.toggle('active');
-  });*/
 
     return (
       <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", gap: "10px" }}>
@@ -214,7 +206,6 @@ const Drawing = forwardRef(
                   transition: "background-color 0.3 ease",
                 }
               }
-
                 onMouseOver={(e) => (e.target.style.backgroundColor = "#d32f2f")}
                 onMouseOut={(e) => (e.target.style.backgroundColor = "#808080")}
               >
