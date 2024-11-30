@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useImperativeHandle, forwardRef } from "react";
 import "../../styles/Drawing.css";
-
 const Drawing = forwardRef(
   (
     {
@@ -11,6 +10,7 @@ const Drawing = forwardRef(
       disableDrawing = false,
       disableClearGrid = false,
       disableColors = false,
+      fillToggle = false,
     },
     ref
   ) => {
@@ -23,6 +23,8 @@ const Drawing = forwardRef(
 
     // Handles grid lines
     const [showGridLines, setShowGridLines] = useState(!disableGridLines);
+
+    const [enableFill, setFillToggle] = useState(fillToggle);
 
     // Handles grid
     const getKey = (row, col) => `${row}-${col}`;
@@ -73,10 +75,20 @@ const Drawing = forwardRef(
     };
 
     const onCellClick = (row, col) => {
+      if(enableFill){
+        const fillGrid = {};
+        for (let rowToggle = 0; rowToggle < rowSize; rowToggle++) {
+          for (let colToggle = 0; colToggle < columnSize; colToggle++) {
+            var fillKey = getKey(rowToggle, colToggle);
+            fillGrid[fillKey] = selectedColor;
+            setGrid(fillGrid);
+      }}}
+      else{
       const cellKey = getKey(row, col);
-      const newGrid = { ...grid };
+      const newGrid = {...grid};
       newGrid[cellKey] = selectedColor;
       setGrid(newGrid);
+      }
     };
 
     const handleGlobalMouseUp = () => setIsDrawing(false);
@@ -110,11 +122,18 @@ const Drawing = forwardRef(
       }
       setGrid(newGrid);
     };
-
     useImperativeHandle(ref, () => ({
       getGridData: () => grid,
       clearGridData,
     }));
+    /*const fillButton = () => {
+      if(fillToggle){fillToggle = false;}
+      else{fillToggle = true;}
+    }*/
+    /*const fillButtonStyle = document.querySelector('.fillButtonStyle');
+    fillButtonStyle.addEventListener('click', () => {
+    fillButtonStyle.classList.toggle('active');
+  });*/
 
     return (
       <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", gap: "10px" }}>
@@ -193,13 +212,28 @@ const Drawing = forwardRef(
                   fontSize: "13px",
                   backgroundColor: "#808080",
                   transition: "background-color 0.3 ease",
-                }}
+                }
+              }
+
                 onMouseOver={(e) => (e.target.style.backgroundColor = "#d32f2f")}
                 onMouseOut={(e) => (e.target.style.backgroundColor = "#808080")}
               >
                 Clear Grid
               </button>
+              
             )}
+            <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+              <label className="switch">
+                  <input
+                    type="checkbox"
+                    checked={enableFill}
+                    onChange={() => setFillToggle((prev) => !prev)}
+                  />
+                  <span className="slider" />
+                  </label>
+                  Fill
+              </div>
+            
           </div>
         </div>
       </div>
