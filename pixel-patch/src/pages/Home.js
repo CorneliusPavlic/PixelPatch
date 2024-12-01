@@ -53,7 +53,6 @@ const Home = () => {
   useEffect(() => {
     fetchPosts();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  
   return (
     <div className="home-container" data-theme = "lightHome" >
       <img src={logo} alt="logo" class="logo-image" />

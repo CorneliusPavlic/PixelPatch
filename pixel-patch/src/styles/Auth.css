@@ -1,15 +1,69 @@
 /* Auth.css */
+@import "./theme.css";
+
 
 .auth-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
-  }
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  text-align: center;
+  margin-top: 75px; 
+}
+  
+.login-container{
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center;
+    margin-top: 75px; 
+}
+
+.login-btn {
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  border-radius: 2px;
+  font-family: var(--main-font);
+  text-transform: uppercase;
+  text-align: center; 
+  height: 42px;
+  width: 200px; 
+  line-height: 100%; 
+  margin-bottom: 1rem; 
+}
+
+.login-btn[data-theme = 'lightBtn']{
+  background-color: var(--btn-backgound-light);
+  color: var(--btn-text-light);
+  box-shadow: var(--btn-shadow-light);
+}
+
+.login-btn[data-theme = 'darkBtn']{
+  background-color: white;
+  color: black;
+  box-shadow: white;
+}
+
+[data-theme = 'lightBtn'].login-btn:hover {
+  color: var(--btn-text-dark);
+  background-color: var(--btn-background-dark);
+}
+
+[data-theme = 'darkBtn'].login-btn:hover {
+  color: var(--btn-text-light);
+  background-color: var(--btn-backgound-light);
+}
+
+.login-container-buttons{
+  display: flex; 
+  align-items: center; 
+  margin-top: 0px; 
+  flex-direction: row; 
+  gap: 0.1rem; 
+}
   
   .auth-form {
     background-color: #fff;
-    padding: 40px;
+    padding: 0px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 100%;
@@ -19,14 +73,16 @@
   .auth-form h2 {
     margin-bottom: 20px;
     font-size: 1.5rem;
-    color: #007bff;
+    color: black;
   }
   
   .auth-form input {
     width: 100%;
     padding: 12px;
     margin-bottom: 15px;
-    border: 1px solid #ddd;
+    font-family: var(--main-font);
+    text-transform: lowercase;
+    border: 1px solid rgb(76, 76, 76);
     border-radius: 5px;
   }
   
