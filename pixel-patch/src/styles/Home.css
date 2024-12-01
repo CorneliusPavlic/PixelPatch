@@ -1,4 +1,5 @@
 /* Home.css */
+@import './theme.css'; 
 
   .home-container {
     display: flex; 
@@ -13,7 +14,15 @@
     margin-left: 200px;
     margin-right: 200px; */
   }
+  .home-container[data-theme='lightHome'] {
+    background-color: white;
+    color: black;
+  }
   
+  .home-container[data-theme='darkHome'] {
+    background-color: black;
+    color: white;
+  }
   .home-container h1 {
     font-size: 3rem;
     margin-bottom: 20px;
