@@ -57,11 +57,7 @@ const Home = () => {
     <div className="home-container" data-theme = "lightHome" >
       <img src={logo} alt="logo" class="logo-image" />
       <div className = "home-container-buttons">
-        <a href="/login" className="main-btn" data-theme = "lightBtn" >login</a>
-        <a href="/signup" className="main-btn" data-theme = "lightBtn">signup</a>
-        <a href="/about" className="main-btn" data-theme = "lightBtn">about</a>
       </div>
-      <a href="/create-post"className="main-btn" data-theme = "lightBtn">create post</a>
       <p>Explore the latest posts and create your own pixel art!</p>
       
       <div className="posts-container">
@@ -72,7 +68,7 @@ const Home = () => {
             <Link to={`/user-profile/${post.user_id}`} className="username-link">
               {post.username}
             </Link>
-            <Drawing initialGrid={JSON.parse(post.content)} disableGridLines={true} disableDrawing={true} disableClearGrid={true} disableColors={true}/>
+            <Drawing initialGrid={JSON.parse(post.content)} disableGridLines={true} disableDrawing={true} disableFill={true} disableClearGrid={true} disableColors={true}/>
           </div>
         ))}
       </div>

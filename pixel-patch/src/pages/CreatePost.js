@@ -103,7 +103,7 @@ const CreatePost = () => {
         />
       </div>
       <div className="pixel-art-canvas">
-        <Drawing ref={drawingRef} />
+        <Drawing ref={drawingRef} cellSize={1.7}/>
       </div>
       <div className="actions">
         <button onClick={handlePost}>Post</button>

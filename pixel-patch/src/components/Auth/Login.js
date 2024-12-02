@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import axios from 'axios'; // Import Axios for API requests
 import '../../styles/Auth.css';
 import '../../styles/theme.css'; 
@@ -8,6 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const navigate = useNavigate(); // Initialize useNavigate hook
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -26,8 +28,9 @@ const Login = () => {
       setSuccess('Login successful!');
       console.log('Login Response:', response.data);
 
-      // Redirect user after login if needed
-      // window.location.href = '/profile';
+      // Redirect user to profile and reload page
+      navigate('/profile'); // Navigate to the profile page
+      window.location.reload(); // Reload the page
     } catch (error) {
       console.error('Error logging in:', error);
       setError('Invalid username or password. Please try again.');
@@ -56,7 +59,7 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit" className='login-createAccount-btn' data-theme = 'lightBtn'>Login</button>
+        <button type="submit" className='login-createAccount-btn' data-theme='lightBtn'>Login</button>
       </form>
       <p>
         Don't have an account? <a href="/signup">Sign up</a>

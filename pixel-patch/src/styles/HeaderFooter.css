@@ -7,6 +7,9 @@ header {
     font-family: var(--main-font);
     text-transform: uppercase;
     padding: 20px 20px;
+    position:fixed;
+    top:0px;
+    width: 100%;
   }
   
   header nav {
@@ -27,9 +30,12 @@ header {
   
   footer {
     background-color: #f8f9fa;
+    position:fixed;
     text-align: center;
     padding: 15px 0;
     color: #6c757d;
+    bottom:0px;
+    width:100%;
   }
   
   footer p {
@@ -44,3 +50,19 @@ header {
     width: 202px; 
     height: 90px;
   }
+
+  /* Style the button to match the links in the header */
+.nav-link-button {
+  background: none; /* Removes the button background */
+  border: none; /* Removes the button border */
+  color: var(--text-dark); /* Match the link text color */
+  margin-left: 15px; /* Match spacing with links */
+  font-weight: bold; /* Match link font weight */
+  text-transform: uppercase; /* Match text case with links */
+  font-family: var(--main-font); /* Use the same font as links */
+  cursor: pointer; /* Pointer cursor to indicate it's clickable */
+}
+
+.nav-link-button:hover {
+  text-decoration: underline; /* Add underline on hover like links */
+}

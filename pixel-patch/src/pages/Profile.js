@@ -121,6 +121,7 @@ const Profile = () => {
                       disableGridLines={true}
                       disableDrawing={true}
                       disableClearGrid={true}
+                      disableFill={true}
                       disableColors={true}
                     />
                   </div>

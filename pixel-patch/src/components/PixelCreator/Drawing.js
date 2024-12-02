@@ -4,17 +4,18 @@ const Drawing = forwardRef(
   (
     {
       initialGrid = {},
-      rowSize = 15,
-      columnSize = 15,
+      rowSize = 16,
+      columnSize = 16,
       disableGridLines = false,
       disableDrawing = false,
       disableClearGrid = false,
       disableColors = false,
+      disableFill = false,
       fillToggle = false,
+      cellSize = 1,
     },
     ref
   ) => {
-    const cellSize = 18;
 
     // Handles Colors
     const [selectedColor, setSelectedColor] = useState("#000");
@@ -61,8 +62,8 @@ const Drawing = forwardRef(
               onMouseEnter={(e) => handleCellInteraction(row, col)}
               onClick={() => !disableDrawing && onCellClick(row, col)}
               style={{
-                width: `${cellSize}px`,
-                height: `${cellSize}px`,
+                width: `${cellSize}vw`,
+                height: `${cellSize}vw`,
                 display: "inline-block",
                 backgroundColor: cellColor,
                 border: showGridLines ? "1px solid #ccc" : "none",
@@ -173,7 +174,7 @@ const Drawing = forwardRef(
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: `repeat(${columnSize}, ${cellSize}px)`,
+                gridTemplateColumns: `repeat(${columnSize}, ${cellSize}vw)`,
                 border: "2px solid #000",
               }}
             >
@@ -214,7 +215,7 @@ const Drawing = forwardRef(
               </button>
               
             )}
-            <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+            {!disableFill && (<div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
               <label className="switch">
                   <input
                     type="checkbox"
@@ -224,7 +225,7 @@ const Drawing = forwardRef(
                   <span className="slider" />
                   </label>
                   Fill
-              </div>
+              </div>)}
             
           </div>
         </div>
