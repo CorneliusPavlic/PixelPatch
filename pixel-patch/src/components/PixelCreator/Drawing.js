@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useImperativeHandle, forwardRef } from "react";
 import "../../styles/Drawing.css";
+import { BsPaintBucket } from "react-icons/bs";
 const Drawing = forwardRef(
   (
     {
@@ -87,7 +88,7 @@ const Drawing = forwardRef(
           while (stack.length > 0) {
             const [r, c] = stack.pop();
             const key = getKey(r, c);
-    
+            if (stack.length > 512) break;
             // Skip if the cell is already filled or if it's not white
             if (fillGrid[key] !== startColor) {
               continue;
@@ -236,17 +237,22 @@ const Drawing = forwardRef(
               </button>
               
             )}
-            {!disableFill && (<div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-              <label className="switch">
-                  <input
-                    type="checkbox"
-                    checked={enableFill}
-                    onChange={() => setFillToggle((prev) => !prev)}
-                  />
-                  <span className="slider" />
-                  </label>
-                  Fill
-              </div>)}
+      {!disableFill && (
+        <div style={{ display: "flex", justifyContent: "center", gap: "10px", alignItems: "center" }}>
+          {/* Only the icon */}
+          <span
+            style={{
+              cursor: 'pointer', // Make the icon clickable
+              color: enableFill ? "blue" : "gray", // Change color based on state
+              fontSize: '24px', // Set the size of the icon
+            }}
+            onClick={() => setFillToggle((prev) => !prev)} // Toggle fill state on click
+          >
+            <BsPaintBucket />
+          </span>
+          Fill
+        </div>
+      )}
             
           </div>
         </div>
