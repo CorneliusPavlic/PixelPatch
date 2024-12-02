@@ -9,13 +9,15 @@ import About from './pages/About';
 import Header from './components/Layout/Header';
 import Footer from './components/Layout/Footer';
 import './styles/globals.css'; // Global styles
-import UserProfile from './pages/UserProfile'; // Import the UserProfile component
+import './styles/theme.css';
+import UserProfile from './pages/UserProfile'; // Import the UserProfile component 
+
 
 function App() {
   return (
     <Router>
       <>
-        <Header />
+        <Header/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />

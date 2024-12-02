@@ -1,18 +1,53 @@
 :root {
     --primary-color: #007bff;
-    --background-light: #ffffff;
-    --background-dark: #333333;
-    --text-light: #ffffff;
-    --text-dark: #000000;
+    --background-light: white;
+    --background-dark: black;
+    
+    --text-light: black;
+    --text-dark: white;
+    
+    --main-font: "JetBrains Mono",monospace;
+    
+    --btn-backgound-light: black;
+    --btn-background-dark: white; 
+    
+    --btn-text-light: white;
+    --btn-text-dark: black;
+    
+    --btn-shadow-light: 0 0 0 3px black inset;
+    --btn-shadow-dark: 0 0 0 3px white inset;
   }
   
-  [data-theme='light'] {
-    background-color: var(--background-light);
-    color: var(--text-dark);
+  .main-btn {
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    border-radius: 2px;
+    font-family: var(--main-font);
+    text-transform: uppercase;
+    height: 42px;
+    line-height: 100%; 
+    margin-bottom: 1rem; 
   }
-  
-  [data-theme='dark'] {
-    background-color: var(--background-dark);
-    color: var(--text-light);
+
+  .main-btn[data-theme = 'lightBtn']{
+    background-color: var(--btn-backgound-light);
+    color: var(--btn-text-light);
+    box-shadow: var(--btn-shadow-light);
+  }
+
+  .main-btn[data-theme = 'darkBtn']{
+    background-color: white;
+    color: black;
+    box-shadow: white;
+  }
+
+  [data-theme = 'lightBtn'].main-btn:hover {
+    color: var(--btn-text-dark);
+    background-color: var(--btn-background-dark);
+  }
+
+  [data-theme = 'darkBtn'].main-btn:hover {
+    color: var(--btn-text-light);
+    background-color: var(--btn-backgound-light);
   }
   

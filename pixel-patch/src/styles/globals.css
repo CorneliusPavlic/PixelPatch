@@ -1,21 +1,29 @@
 /* globals.css */
+@import './theme.css';
 
-* {
+*{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+[data-theme='light'] {
+  background-color: var(--background-light);
+  color: var(--text-light);
+}
+
+[data-theme='dark'] {
+  background-color: var(--background-dark);
+  color: var(--text-dark);
+}
+
 body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f7f9fc;
-  color: #333;
+  font-family: var(--main-font);
   line-height: 1.6;
 }
 
 a {
   text-decoration: none;
-  color: #007bff;
 }
 
 a:hover {
@@ -23,7 +31,7 @@ a:hover {
 }
 
 h1, h2, h3 {
-  color: #333;
+  color: var(--text-light);
 }
 
 .container {
@@ -43,4 +51,5 @@ button {
 
 button:hover {
   background-color: #0056b3;
+  text-decoration: underline;
 }

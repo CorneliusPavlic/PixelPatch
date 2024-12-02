@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios'; // Ensure axios is installed
 import '../styles/Home.css';
+import '../styles/theme.css'; 
 import { Link } from 'react-router-dom';  // Add this to handle navigation
+import logo from '../assets/logoNoBorder.png';
 import Drawing from '../components/PixelCreator/Drawing';
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
-
+  const [hasMore, setHasMore] = useState(true); 
+    
   // Fetch posts from the backend
   const fetchPosts = useCallback(async () => {
     if (loading || !hasMore) return;
@@ -51,13 +53,17 @@ const Home = () => {
   useEffect(() => {
     fetchPosts();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
   return (
-    <div className="home-container">
-      <h1>Welcome to PixelPatch</h1>
+    <div className="home-container" data-theme = "lightHome" >
+      <img src={logo} alt="logo" class="logo-image" />
+      <div className = "home-container-buttons">
+        <a href="/login" className="main-btn" data-theme = "lightBtn" >login</a>
+        <a href="/signup" className="main-btn" data-theme = "lightBtn">signup</a>
+        <a href="/about" className="main-btn" data-theme = "lightBtn">about</a>
+      </div>
+      <a href="/create-post"className="main-btn" data-theme = "lightBtn">create post</a>
       <p>Explore the latest posts and create your own pixel art!</p>
-      <a href="/create-post" className="create-post-btn">Create Post</a>
-
+      
       <div className="posts-container">
         {posts.map((post, index) => (
           <div key={index} className="post">

@@ -1,10 +1,28 @@
 /* Home.css */
+@import './theme.css'; 
 
-.home-container {
+  .home-container {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
     text-align: center;
-    margin-top: 50px;
+    margin-top: 75px; 
+    /*for a border*/
+    /* border: 3px solid black;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    margin-left: 200px;
+    margin-right: 200px; */
+  }
+  .home-container[data-theme='lightHome'] {
+    background-color: white;
+    color: black;
   }
   
+  .home-container[data-theme='darkHome'] {
+    background-color: black;
+    color: white;
+  }
   .home-container h1 {
     font-size: 3rem;
     margin-bottom: 20px;
@@ -15,16 +33,37 @@
     margin-bottom: 30px;
   }
   
+  .logo-image{
+    display: block;
+    image-rendering: pixelated;
+    width: 404px; 
+    height: 180px;
+  }
+
+  .home-container-buttons{
+    display: flex;
+    flex-direction: row; 
+    gap: 0.1rem; 
+  }
+
+  /* 
   .create-post-btn {
     padding: 12px 20px;
     font-size: 1.1rem;
-    border-radius: 5px;
-    background-color: #28a745;
+    border-radius: 2px;
+    background-color: black;
     color: #fff;
+    font-family: "JetBrains Mono",monospace;
     text-transform: uppercase;
+    box-shadow: 0 0 0 3px #000000 inset;
+    height: 42px;
+    line-height: 100%; 
+    margin-bottom: 1rem; 
   }
   
   .create-post-btn:hover {
-    background-color: #218838;
+    color: black;
+    background-color: #fff;
   }
+ */
   

@@ -202,6 +202,7 @@ const Drawing = forwardRef(
                 onClick={clearGridData}
                 style={{
                   fontSize: "13px",
+                  fontFamily: "'JetBrains Mono',monospace",
                   backgroundColor: "#808080",
                   transition: "background-color 0.3 ease",
                 }

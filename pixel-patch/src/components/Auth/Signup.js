@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios'; // Axios for API calls
 import '../../styles/Auth.css';
+import '../../styles/theme.css'; 
 
 const Signup = () => {
   const [username, setUsername] = useState('');
@@ -42,8 +43,8 @@ const Signup = () => {
   };
 
   return (
-    <div className="signup-container">
-      <form onSubmit={handleSignup}>
+    <div className="auth-container">
+      <form onSubmit={handleSignup} className='auth-form'>
         <h2>Sign Up</h2>
 
         {error && <p className="error">{error}</p>}
@@ -77,7 +78,7 @@ const Signup = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
         />
-        <button type="submit">Create Account</button>
+        <button type="submit" className='login-createAccount-btn' data-theme = "lightBtn">Create Account</button>
       </form>
     </div>
   );

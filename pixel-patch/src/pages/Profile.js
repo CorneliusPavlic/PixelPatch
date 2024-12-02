@@ -16,7 +16,7 @@ const Profile = () => {
       try {
         const token = localStorage.getItem('accessToken'); // Get the token from localStorage
         if (!token) {
-          setStatusMessage('User is not authenticated.');
+          setStatusMessage('User is not authenticated. Login or Signup to view this page!');
           setLoading(false);
           return;
         }

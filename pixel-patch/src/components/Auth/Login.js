@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios'; // Import Axios for API requests
 import '../../styles/Auth.css';
+import '../../styles/theme.css'; 
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -34,8 +35,8 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <form onSubmit={handleLogin}>
+    <div className="auth-container">
+      <form onSubmit={handleLogin} className='auth-form'>
         <h2>Login</h2>
 
         {error && <p className="error">{error}</p>}
@@ -48,14 +49,14 @@ const Login = () => {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-        <input
+        <input 
           type="password"
           placeholder="Password"
           id="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Login</button>
+        <button type="submit" className='login-createAccount-btn' data-theme = 'lightBtn'>Login</button>
       </form>
       <p>
         Don't have an account? <a href="/signup">Sign up</a>

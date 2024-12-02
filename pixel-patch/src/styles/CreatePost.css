@@ -1,3 +1,5 @@
+@import './theme.css'; 
+
 .create-post-container {
     max-width: 800px;
     margin: 0 auto;
@@ -20,8 +22,9 @@
   .form-group input {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     border-radius: 5px;
+    font-family: "JetBrains Mono",monospace;
   }
   
   .pixel-art-canvas {
@@ -34,17 +37,26 @@
   }
   
   .actions button {
-    padding: 10px 20px;
-    margin-right: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    padding: 12px 50px;
+    font-size: 1.1rem;
+    border-radius: 2px;
+    font-family: var(--main-font);
+    text-transform: uppercase;
+    height: 42px;
+    line-height: 100%; 
+    margin-bottom: 1rem; 
+    margin-right: 1rem;
+  }
+
+  .actions button{
+    background-color: var(--btn-backgound-light);
+    color: var(--btn-text-light);
+    box-shadow: var(--btn-shadow-light);
   }
   
   .actions button:hover {
-    background-color: #0056b3;
+    color: var(--btn-text-dark);
+    background-color: var(--btn-background-dark);
   }
   
   .status-message {
