@@ -12,27 +12,44 @@
   }
   
   .search-form input {
-    width: 70%;
-    padding: 10px;
-    font-size: 16px;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    border-radius: 2px;
+    background-color: black;
+    color: #fff;
+    font-family: "JetBrains Mono", monospace;
+    text-transform: uppercase;
+    box-shadow: 0 0 0 3px #000000 inset;
+    height: 60px;
+    line-height: 100%;
+    width: 90%; /* Keep this if you want it to be the same width as the previous styling */
     border: 1px solid #ccc;
-    border-radius: 5px;
     outline: none;
   }
   
+  /* Hover effect for the input */
+  .search-form input:hover {
+    color: black;
+    background-color: #fff;
+  }
+
+
   .search-form button {
-    padding: 10px 20px;
-    margin-left: 10px;
-    font-size: 16px;
-    color: white;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    border-radius: 2px;
+    background-color: black;
+    color: #fff;
+    font-family: "JetBrains Mono",monospace;
+    text-transform: uppercase;
+    box-shadow: 0 0 0 3px #000000 inset;
+    height: 60px;
+    line-height: 100%; 
   }
   
   .search-form button:hover {
-    background-color: #0056b3;
+    color: black;
+    background-color: #fff;
   }
   
   .search-results {
@@ -64,3 +81,25 @@
     margin-top: 10px;
   }
   
+
+
+    /* 
+  .create-post-btn {
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    border-radius: 2px;
+    background-color: black;
+    color: #fff;
+    font-family: "JetBrains Mono",monospace;
+    text-transform: uppercase;
+    box-shadow: 0 0 0 3px #000000 inset;
+    height: 42px;
+    line-height: 100%; 
+    margin-bottom: 1rem; 
+  }
+  
+  .create-post-btn:hover {
+    color: black;
+    background-color: #fff;
+  }
+ */

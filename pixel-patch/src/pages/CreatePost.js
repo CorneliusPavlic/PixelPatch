@@ -2,8 +2,10 @@ import React, { useRef, useState } from 'react';
 import '../styles/CreatePost.css'; // Assuming styles are in a separate CSS file
 import Drawing from '../components/PixelCreator/Drawing';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const CreatePost = () => {
+  const navigate = useNavigate(); // Initialize the navigate function
   const [title, setTitle] = useState('');
   const [tags, setTags] = useState('');
   const [statusMessage, setStatusMessage] = useState('');
@@ -44,7 +46,7 @@ const CreatePost = () => {
         // Handle success
         setStatusMessage('Post created successfully!');
         console.log('Post response:', response.data);
-
+        navigate('/profile')
         // Clear the canvas after successful post
         clearCanvas();
       } catch (error) {
@@ -107,8 +109,6 @@ const CreatePost = () => {
       </div>
       <div className="actions">
         <button onClick={handlePost}>Post</button>
-        <button onClick={handleArchive}>Archive</button>
-        <button onClick={handleDelete}>Delete</button>
       </div>
       {statusMessage && <p className="status-message">{statusMessage}</p>}
     </div>

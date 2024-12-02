@@ -36,6 +36,12 @@
     align-items: center;
   }
   
+  .actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
   .actions button {
     padding: 12px 50px;
     font-size: 1.1rem;

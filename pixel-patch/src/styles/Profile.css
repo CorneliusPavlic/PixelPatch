@@ -7,6 +7,25 @@
   background: #f9f9f9;
 }
 
+
+.profile-container button {
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  border-radius: 2px;
+  background-color: black;
+  color: #fff;
+  font-family: "JetBrains Mono",monospace;
+  text-transform: uppercase;
+  box-shadow: 0 0 0 3px #000000 inset;
+  height: 42px;
+  line-height: 100%; 
+}
+
+.profile-container button:hover {
+  color: black;
+  background-color: #fff;
+}
+
 .posts-list {
   margin-top: 20px;
 }

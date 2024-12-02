@@ -127,8 +127,8 @@ const Profile = () => {
                   </div>
 
                   <div className="post-actions">
-                    <button onClick={() => handleEdit(post)}>Edit</button>
-                    <button onClick={() => handleDelete(post.id)}>Delete</button>
+                    <button onClick={() => handleEdit(post)}>Edit Title</button>
+                    <button onClick={() => handleDelete(post.id)}>Delete Post</button>
                   </div>
                 </>
               )}
