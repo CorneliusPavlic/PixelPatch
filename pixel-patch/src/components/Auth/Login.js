@@ -56,7 +56,7 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit" className='login-btn' data-theme = 'lightBtn'>Login</button>
+        <button type="submit" className='login-createAccount-btn' data-theme = 'lightBtn'>Login</button>
       </form>
       <p>
         Don't have an account? <a href="/signup">Sign up</a>

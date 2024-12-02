@@ -18,7 +18,6 @@ function App() {
     <Router>
       <>
         <Header/>
-        <button id="theme-toggle" className="main-btn" >toggle</button>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />

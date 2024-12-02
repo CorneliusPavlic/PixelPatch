@@ -78,7 +78,7 @@ const Signup = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
         />
-        <button type="submit" className='login-btn' data-theme = "lightBtn">Create Account</button>
+        <button type="submit" className='login-createAccount-btn' data-theme = "lightBtn">Create Account</button>
       </form>
     </div>
   );

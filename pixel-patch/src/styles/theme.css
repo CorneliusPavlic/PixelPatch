@@ -2,13 +2,18 @@
     --primary-color: #007bff;
     --background-light: white;
     --background-dark: black;
+    
     --text-light: black;
     --text-dark: white;
+    
+    --main-font: "JetBrains Mono",monospace;
+    
     --btn-backgound-light: black;
     --btn-background-dark: white; 
+    
     --btn-text-light: white;
     --btn-text-dark: black;
-    --main-font: "JetBrains Mono",monospace;
+    
     --btn-shadow-light: 0 0 0 3px black inset;
     --btn-shadow-dark: 0 0 0 3px white inset;
   }

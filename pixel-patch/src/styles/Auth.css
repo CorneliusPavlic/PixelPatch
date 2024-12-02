@@ -1,7 +1,6 @@
 /* Auth.css */
 @import "./theme.css";
 
-
 .auth-container {
   display: flex; 
   flex-direction: column; 
@@ -10,15 +9,7 @@
   margin-top: 75px; 
 }
   
-.login-container{
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    text-align: center;
-    margin-top: 75px; 
-}
-
-.login-btn {
+.login-createAccount-btn {
   padding: 12px 20px;
   font-size: 1.1rem;
   border-radius: 2px;
@@ -31,34 +22,26 @@
   margin-bottom: 1rem; 
 }
 
-.login-btn[data-theme = 'lightBtn']{
+.login-createAccount-btn[data-theme = 'lightBtn']{
   background-color: var(--btn-backgound-light);
   color: var(--btn-text-light);
   box-shadow: var(--btn-shadow-light);
 }
 
-.login-btn[data-theme = 'darkBtn']{
+.login-createAccount-btn[data-theme = 'darkBtn']{
   background-color: white;
   color: black;
   box-shadow: white;
 }
 
-[data-theme = 'lightBtn'].login-btn:hover {
+[data-theme = 'lightBtn'].login-createAccount-btn:hover {
   color: var(--btn-text-dark);
   background-color: var(--btn-background-dark);
 }
 
-[data-theme = 'darkBtn'].login-btn:hover {
+[data-theme = 'darkBtn'].login-createAccount-btn:hover {
   color: var(--btn-text-light);
   background-color: var(--btn-backgound-light);
-}
-
-.login-container-buttons{
-  display: flex; 
-  align-items: center; 
-  margin-top: 0px; 
-  flex-direction: row; 
-  gap: 0.1rem; 
 }
   
   .auth-form {
