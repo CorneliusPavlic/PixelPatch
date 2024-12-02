@@ -68,7 +68,7 @@ const Home = () => {
             <Link to={`/user-profile/${post.user_id}`} className="username-link">
               {post.username}
             </Link>
-            <Drawing initialGrid={JSON.parse(post.content)} disableGridLines={true} disableDrawing={true} disableFill={true} disableClearGrid={true} disableColors={true}/>
+            <Drawing initialGrid={JSON.parse(post.content)} disableGridLines={true} disableDrawing={true} cellSize={1.7} disableFill={true} disableClearGrid={true} disableColors={true}/>
           </div>
         ))}
       </div>

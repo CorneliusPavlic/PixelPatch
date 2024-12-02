@@ -50,12 +50,14 @@ const UserProfile = () => {
                 initialGrid={JSON.parse(post.content)} // Display the pixel art
                 disableGridLines={true}
                 disableDrawing={true}
+                disableFill={true}
                 disableClearGrid={true}
                 disableColors={true}
+                cellSize={1.7}
               />
             </div>
           ))}
-        </div>
+        </div> 
       )}
     </div>
   );

@@ -3,6 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from flask_cors import CORS  # Import CORS
+from sqlalchemy import or_
+from sqlalchemy.orm import aliased
+from flask import request, jsonify
+
+
 import json
 
 # Initialize app
@@ -153,6 +158,49 @@ def retrieve_user_posts():
         print(f"Error in retrieve_user_posts: {str(e)}")
         return jsonify({"message": "An error occurred while retrieving posts."}), 500
 
+
+
+
+@app.route('/search', methods=['GET'])
+def search_posts():
+    query = request.args.get('query', '').lower().strip()
+    if not query:
+        return jsonify([]), 200
+
+    results = []
+
+    # Searching for users with usernames similar to the query
+    users = User.query.filter(User.username.ilike(f"%{query}%")).all()
+
+    # Searching for posts with title similar to the query or containing hashtags
+    posts = Post.query.filter(
+        or_(
+            Post.title.ilike(f"%{query}%"),  # Matches titles that contain the query
+            Post.hashtags.ilike(f"%{query}%")  # Matches hashtags
+        )
+    ).all()
+
+    # Add users to results
+    for user in users:
+        results.append({
+            "id": None,  # Users don't have a post ID
+            "username": user.username,
+            "user_id": user.id,
+            "title": None,
+            "content": None,
+        })
+
+    # Add posts to results
+    for post in posts:
+        results.append({
+            "id": post.id,
+            "user_id": post.user_id,
+            "title": post.title,
+            "content": post.content,
+            "hashtags": post.hashtags
+        })
+
+    return jsonify(results), 200
 
 @app.route('/user_posts/<int:user_id>', methods=['GET'])
 def user_posts(user_id):

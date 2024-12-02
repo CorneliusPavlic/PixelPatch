@@ -8,6 +8,7 @@ import CreatePost from './pages/CreatePost';
 import About from './pages/About';
 import Header from './components/Layout/Header';
 import Footer from './components/Layout/Footer';
+import Search from './pages/Search';
 import './styles/globals.css'; // Global styles
 import './styles/theme.css';
 import UserProfile from './pages/UserProfile'; // Import the UserProfile component 
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path='/search' element={<Search />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/user-profile/:user_id" element={<UserProfile />} />
