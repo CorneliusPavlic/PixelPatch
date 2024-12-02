@@ -29,23 +29,23 @@ const Header = () => {
       <nav>
         <Link to="/">Home</Link>
         <Link to="/about">About</Link>
-        {loggedIn && <Link to="/profile">Profile</Link>}
-        {!loggedIn && <Link to="/login">Login</Link>}
+        <Link to="/search"><FaSearch /></Link>
+        <button onClick={handleCreatePostClick} className="nav-link-button styled-link">
+          Create Post
+        </button>
         {loggedIn && (
           <button
-            className="nav-link-button styled-link"
-            onClick={() => {
-              localStorage.removeItem('accessToken');
-              window.location.reload();
-            }}
+          className="nav-link-button styled-link"
+          onClick={() => {
+            localStorage.removeItem('accessToken');
+            window.location.reload();
+          }}
           >
             Logout
           </button>
         )}
-        <button onClick={handleCreatePostClick} className="nav-link-button styled-link">
-          Create Post
-        </button>
-        <Link to="/search"><FaSearch /></Link>
+        {loggedIn && <Link to="/profile">Profile</Link>}
+        {!loggedIn && <Link to="/login">Login</Link>}
           
       </nav>
     </header>

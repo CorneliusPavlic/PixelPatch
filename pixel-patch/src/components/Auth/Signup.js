@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import axios from 'axios'; // Axios for API calls
 import '../../styles/Auth.css';
 import '../../styles/theme.css'; 
 
 const Signup = () => {
+  const navigate = useNavigate(); // Initialize the navigate function
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -30,7 +32,7 @@ const Signup = () => {
 
       setSuccess('Account created successfully! You can now log in.');
       console.log('Signup Response:', response.data);
-
+      navigate('/login'); // Navigate to the login page
       // Clear form fields
       setUsername('');
       setEmail('');
