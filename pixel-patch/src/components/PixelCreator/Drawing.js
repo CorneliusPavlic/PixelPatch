@@ -76,21 +76,42 @@ const Drawing = forwardRef(
     };
 
     const onCellClick = (row, col) => {
-      if(enableFill){
-        const fillGrid = {};
-        for (let rowToggle = 0; rowToggle < rowSize; rowToggle++) {
-          for (let colToggle = 0; colToggle < columnSize; colToggle++) {
-            var fillKey = getKey(rowToggle, colToggle);
-            fillGrid[fillKey] = selectedColor;
-            setGrid(fillGrid);
-      }}}
-      else{
-      const cellKey = getKey(row, col);
-      const newGrid = {...grid};
-      newGrid[cellKey] = selectedColor;
-      setGrid(newGrid);
+      if (enableFill) {
+        const fillGrid = { ...grid }; // Make a copy of the grid
+        const startKey = getKey(row, col);
+        const startColor = fillGrid[startKey];
+        console.log(startColor);
+        // Only proceed if the start cell is white
+          const stack = [[row, col]]; // Stack to store the cells to fill
+    
+          while (stack.length > 0) {
+            const [r, c] = stack.pop();
+            const key = getKey(r, c);
+    
+            // Skip if the cell is already filled or if it's not white
+            if (fillGrid[key] !== startColor) {
+              continue;
+            }
+    
+            // Set the color of the current cell
+            fillGrid[key] = selectedColor;
+    
+            // Add adjacent cells to the stack if they are within bounds
+            if (r > 0) stack.push([r - 1, c]); // Up
+            if (r < rowSize - 1) stack.push([r + 1, c]); // Down
+            if (c > 0) stack.push([r, c - 1]); // Left
+            if (c < columnSize - 1) stack.push([r, c + 1]); // Right
+          }
+    
+          setGrid(fillGrid); // Update the grid after filling
+      } else {
+        const cellKey = getKey(row, col);
+        const newGrid = { ...grid };
+        newGrid[cellKey] = selectedColor;
+        setGrid(newGrid);
       }
     };
+    
 
     const handleGlobalMouseUp = () => setIsDrawing(false);
 

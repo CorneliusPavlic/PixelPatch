@@ -8,9 +8,53 @@ from sqlalchemy.exc import SQLAlchemyError
 
 # List of famous artists
 artists = [
-    "Vincent van Gogh", "Pablo Picasso", "Claude Monet", "Leonardo da Vinci",
-    "Salvador Dalí", "Michelangelo", "Frida Kahlo", "Andy Warhol", "Jackson Pollock", "Edvard Munch"
+    "Vincent van Gogh", "Pablo Picasso", "Claude Monet", "Leonardo da Vinci", 
+    "Salvador Dalí", "Michelangelo", "Frida Kahlo", "Andy Warhol", 
+    "Jackson Pollock", "Edvard Munch", "Rembrandt", "Henri Matisse", 
+    "Marc Chagall", "Paul Cézanne", "Paul Gauguin", "Georgia O'Keeffe", 
+    "Wassily Kandinsky", "Gustav Klimt", "Johannes Vermeer", "Edgar Degas", 
+    "Roy Lichtenstein", "Damien Hirst", "David Hockney", "Keith Haring", 
+    "Robert Rauschenberg", "Yayoi Kusama", "Joseph Beuys", "Anselm Kiefer",
+    "Hannah Höch", "Kazimir Malevich", "Jean-Michel Basquiat", "Banksy",
+    "Andy Goldsworthy", "Lucian Freud", "Gustave Courbet", "Franz Marc", 
+    "Mark Rothko", "Edward Hopper", "Pierre-Auguste Renoir", "Auguste Rodin", 
+    "Élisabeth Louise Vigée Le Brun", "Mary Cassatt", "Albrecht Dürer", 
+    "Edward Weston", "Francisco Goya", "René Magritte", "Marcelle Cahn", 
+    "Hiroshi Sugimoto", "Berthe Morisot", "Amedeo Modigliani", "Willem de Kooning",
+    "Antoni Tàpies", "Roy Lichtenstein", "Norman Rockwell", "Lucio Fontana", 
+    "John Singer Sargent", "Yves Klein", "Jackson Pollock", "Helen Frankenthaler", 
+    "Ellsworth Kelly", "Alfred Stieglitz", "Man Ray", "Jasper Johns", "Annie Leibovitz",
+    "Frank Stella", "Jean Dubuffet", "Maurizio Cattelan", "Louise Bourgeois", 
+    "Edward Burtynsky", "Henry Moore", "David Smith", "Jean Arp", "Andy Warhol",
+    "Jean-Paul Riopelle", "Robert Indiana", "Keith Haring", "Thomas Gainsborough",
+    "J.M.W. Turner", "Hans Holbein", "John Constable", "Maurice Utrillo", 
+    "Kurt Schwitters", "René Magritte", "Piet Mondrian", "Gerhard Richter", 
+    "David Altmejd", "Ai Weiwei", "M.C. Escher", "Chuck Close", "Leonora Carrington", 
+    "Jean-Michel Basquiat", "Maurice de Vlaminck", "Paul Klee", "Giorgio de Chirico", 
+    "Mikhail Larionov", "Camille Pissarro", "Édouard Manet", "Isamu Noguchi", 
+    "Richard Serra", "Eugène Delacroix", "Keith Haring", "Egon Schiele", "Jean Metzinger",
+    "Sophie Calle", "Michaelangelo Pistoletto", "Giorgio Morandi", "Manolo Valdés", 
+    "Eva Hesse", "Hiroshi Sugimoto", "Ed Ruscha", "Robert Motherwell", "Julian Schnabel",
+    "Frank Gehry", "Frank Lloyd Wright", "Max Ernst", "Raoul Dufy", "René Magritte",
+    "Richard Prince", "Marc Quinn", "Jean-Michel Basquiat", "Cy Twombly", "David Hockney",
+    "Eva Zeisel", "David Salle", "Albert Bierstadt", "John Tenniel", "Larry Rivers", 
+    "Keith Sonnier", "Jacqueline de Jong", "Barbara Hepworth", "Gustav Klimt", 
+    "Chuck Close", "Jim Dine", "Alexander Calder", "Louise Nevelson", "Helen Levitt", 
+    "Richard Diebenkorn", "Bridget Riley", "Earl Cunningham", "Gerald Laing", 
+    "Hiroshi Sugimoto", "Claude Lorrain", "Thomas Eakins", "Lucian Freud", "Paul Jenkins",
+    "Andy Goldsworthy", "Hans Wegner", "Salvador Dalí", "Artemisia Gentileschi", 
+    "Sandro Botticelli", "Raphael", "Diego Rivera", "Tom Wesselmann", "Chris Burden",
+    "Niki de Saint Phalle", "Sam Francis", "Jean-Michel Basquiat", "Helen Frankenthaler",
+    "Henri Rousseau", "Berthe Morisot", "Max Beckmann", "Jean Arp", "Vasily Kandinsky", 
+    "Antoni Gaudí", "Roy Lichtenstein", "Gustav Klimt", "Zao Wou-Ki", "Eva Hesse", 
+    "Mark Rothko", "Marina Abramović", "Alberto Giacometti", "Hans Bellmer", 
+    "El Anatsui", "Shirin Neshat", "David Hammons", "Anselm Kiefer", "Sigmar Polke",
+    "Marlene Dumas", "Ellen Gallagher", "Arturo Herrera", "Chris Ofili", "Sol LeWitt",
+    "Julian Opie", "Joseph Kosuth", "George Condo", "Tina Modotti", "James Turrell", 
+    "Isabel Rawsthorne", "Eve Sussman", "Isaac Julien", "Glenn Ligon", "Chris Killip",
+    "Rene Magritte", "Tom Sachs", "Dan Flavin", "Frank Stella", "Joan Miró", "Robert Rauschenberg"
 ]
+
 
 # Artsy API details
 ARTSY_API_URL = "https://api.artsy.net/api/artworks"
@@ -31,13 +75,11 @@ def fetch_painting_image(artist_name):
     
     if response.status_code == 200:
         data = response.json()
-        print(f"Response Data: {json.dumps(data, indent=2)}")  # Print the raw response data for debugging
-
         # Check if we have results and if the first result is an artist
         if '_embedded' in data and 'results' in data['_embedded']:
             # Get the first artist from the response
             artist = data['_embedded']['results'][0]
-            
+            print(artist)
             # Extract the thumbnail image URL
             image_url = artist.get('_links', {}).get('thumbnail', {}).get('href')
             if image_url:
