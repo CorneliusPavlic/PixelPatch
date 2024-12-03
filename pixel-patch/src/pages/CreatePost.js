@@ -14,9 +14,13 @@ const CreatePost = () => {
 
   const handlePost = async () => {
     // Ensure all necessary fields are filled
-    if (!title.trim() || !tags.trim()) {
+    if (!title.trim()) {
       setStatusMessage('Title and tags are required.');
       return;
+    }
+
+    if (!tags.trim()) {
+      setTags("nulltags");
     }
 
     if (drawingRef.current) {
@@ -96,7 +100,7 @@ const CreatePost = () => {
         />
       </div>
       <div className="pixel-art-canvas">
-        <Drawing ref={drawingRef} cellSize={1.7}/>
+        <Drawing ref={drawingRef} disableUndo={false} cellSize={1.7}/>
       </div>
       <div className="actions">
         <button onClick={handlePost}>Post</button>

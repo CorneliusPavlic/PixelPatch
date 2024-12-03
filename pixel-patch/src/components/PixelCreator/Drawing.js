@@ -14,6 +14,7 @@ const Drawing = forwardRef(
       disableColors = false,
       disableFill = false,
       fillToggle = false,
+      disableUndo = true,
       cellSize = 1,
     },
     ref
@@ -212,9 +213,9 @@ const Drawing = forwardRef(
               <button onClick={clearGridData}>Clear Grid</button>
             )}
             {/* Undo button */}
-            <button onClick={undoLastAction} disabled={gridHistory.length === 0}>
+            {!disableUndo && (<button onClick={undoLastAction} disabled={gridHistory.length === 0}>
               Undo
-            </button>
+            </button>)}
             {/* Fill toggle */}
             {!disableFill && (
               <span
