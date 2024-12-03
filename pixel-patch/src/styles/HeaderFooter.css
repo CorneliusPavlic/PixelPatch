@@ -53,14 +53,16 @@ header {
 
   /* Style the button to match the links in the header */
 .nav-link-button {
-  background: none; /* Removes the button background */
-  border: none; /* Removes the button border */
-  color: var(--text-dark); /* Match the link text color */
-  margin-left: 15px; /* Match spacing with links */
-  font-weight: bold; /* Match link font weight */
-  text-transform: uppercase; /* Match text case with links */
-  font-family: var(--main-font); /* Use the same font as links */
-  cursor: pointer; /* Pointer cursor to indicate it's clickable */
+  background: none;
+  border: none;
+  color: var(--text-dark);
+  margin-left: 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: var(--main-font);
+  height: 25.6px; 
+  cursor: pointer; 
+  padding: 0px;
 }
 
 .nav-link-button:hover {
