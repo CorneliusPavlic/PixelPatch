@@ -20,12 +20,11 @@ const Drawing = forwardRef(
   ) => {
     const [selectedColor, setSelectedColor] = useState("#000"); // Default selected color
     const defaultCellColor = "#fff";
-
+    
     const [showGridLines, setShowGridLines] = useState(!disableGridLines);
     const [enableFill, setFillToggle] = useState(fillToggle);
-
     const getKey = (row, col) => `${row}-${col}`;
-
+    
     const initializeGrid = (initialGrid, rowSize, columnSize, defaultCellColor) => {
       if (Object.keys(initialGrid).length > 0) {
         return initialGrid;
@@ -39,10 +38,26 @@ const Drawing = forwardRef(
       }
       return newGrid;
     };
-
-    const [grid, setGrid] = useState(() => initializeGrid(initialGrid, rowSize, columnSize, defaultCellColor));
+    const [grid, setGrid] = useState(() =>
+      initializeGrid(initialGrid, rowSize, columnSize, defaultCellColor)
+    );
 
     const [isDrawing, setIsDrawing] = useState(false);
+    const [gridHistory, setGridHistory] = useState([]); // History of grid states for undo functionality
+
+
+
+    const saveHistory = () => {
+      setGridHistory((prevHistory) => [...prevHistory, { ...grid }]);
+    };
+
+    const undoLastAction = () => {
+      if (gridHistory.length > 0) {
+        const previousGrid = gridHistory.pop();
+        setGridHistory([...gridHistory]); // Update the history stack
+        setGrid(previousGrid); // Restore the last grid state
+      }
+    };
 
     const generateGrid = () => {
       const gridCells = [];
@@ -71,39 +86,39 @@ const Drawing = forwardRef(
     };
 
     const onCellClick = (row, col) => {
+      saveHistory(); // Save the current state before modifying
+      const cellKey = getKey(row, col);
+
       if (enableFill) {
-        const fillGrid = { ...grid }; // Make a copy of the grid
+        const fillGrid = { ...grid }; // Copy the grid
         const startKey = getKey(row, col);
         const startColor = fillGrid[startKey];
-        console.log(startColor);
-        // Only proceed if the start cell is white
-          const stack = [[row, col]]; // Stack to store the cells to fill
-    
-          while (stack.length > 0) {
-            const [r, c] = stack.pop();
-            const key = getKey(r, c);
-            if (stack.length > 512) break;
-            // Skip if the cell is already filled or if it's not white
-            if (fillGrid[key] !== startColor) {
-              continue;
-            }
-    
-            // Set the color of the current cell
-            fillGrid[key] = selectedColor;
-    
-            // Add adjacent cells to the stack if they are within bounds
-            if (r > 0) stack.push([r - 1, c]); // Up
-            if (r < rowSize - 1) stack.push([r + 1, c]); // Down
-            if (c > 0) stack.push([r, c - 1]); // Left
-            if (c < columnSize - 1) stack.push([r, c + 1]); // Right
+        if (fillGrid[cellKey] === selectedColor) return;
+
+        const stack = [[row, col]]; // Stack to store cells to fill
+
+        while (stack.length > 0) {
+          const [r, c] = stack.pop();
+          const key = getKey(r, c);
+          if (stack.length > 512) break;
+
+          if (fillGrid[key] !== startColor) {
+            continue;
           }
-    
-          setGrid(fillGrid); // Update the grid after filling
+
+          fillGrid[key] = selectedColor;
+
+          if (r > 0) stack.push([r - 1, c]); // Up
+          if (r < rowSize - 1) stack.push([r + 1, c]); // Down
+          if (c > 0) stack.push([r, c - 1]); // Left
+          if (c < columnSize - 1) stack.push([r, c + 1]); // Right
+        }
+
+        setGrid(fillGrid); // Update the grid after filling
       } else {
-      const cellKey = getKey(row, col);
-      const newGrid = { ...grid };
-      newGrid[cellKey] = selectedColor;
-      setGrid(newGrid);
+        const newGrid = { ...grid };
+        newGrid[cellKey] = selectedColor;
+        setGrid(newGrid);
       }
     };
 
@@ -129,6 +144,7 @@ const Drawing = forwardRef(
     }, []);
 
     const clearGridData = () => {
+      saveHistory(); // Save the current state before clearing
       const newGrid = {};
       for (let row = 0; row < rowSize; row++) {
         for (let col = 0; col < columnSize; col++) {
@@ -149,21 +165,19 @@ const Drawing = forwardRef(
         {/* Color picker */}
         {!disableColors && (
           <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-            <label>
-              Select Color:
-            </label>
-              <input
-                type="color"
-                value={selectedColor}
-                onChange={(e) => setSelectedColor(e.target.value)}
-                style={{
-                  marginLeft: "10px",
-                  width: "50px",
-                  height: "50px",
-                  border: "none",
-                  cursor: "pointer",
-                }}
-              />
+            <label>Select Color:</label>
+            <input
+              type="color"
+              value={selectedColor}
+              onChange={(e) => setSelectedColor(e.target.value)}
+              style={{
+                marginLeft: "10px",
+                width: "50px",
+                height: "50px",
+                border: "none",
+                cursor: "pointer",
+              }}
+            />
           </div>
         )}
 
@@ -181,7 +195,7 @@ const Drawing = forwardRef(
           <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "30px", marginTop: "10px" }}>
             {/* Toggle grid lines */}
             {!disableGridLines && (
-                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                 <label style={{ display: "flex", alignItems: "center", gap: "10px", cursor: "pointer" }}>
                   Show Grid Lines
                   <input
@@ -195,12 +209,12 @@ const Drawing = forwardRef(
             )}
             {/* Clear grid */}
             {!disableClearGrid && (
-              <button
-                onClick={clearGridData}
-              >
-                Clear Grid
-              </button>
+              <button onClick={clearGridData}>Clear Grid</button>
             )}
+            {/* Undo button */}
+            <button onClick={undoLastAction} disabled={gridHistory.length === 0}>
+              Undo
+            </button>
             {/* Fill toggle */}
             {!disableFill && (
               <span
