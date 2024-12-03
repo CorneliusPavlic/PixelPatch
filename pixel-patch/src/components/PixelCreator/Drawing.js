@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useImperativeHandle, forwardRef } from "react";
 import "../../styles/Drawing.css";
 import { BsPaintBucket } from "react-icons/bs";
+
 const Drawing = forwardRef(
   (
     {
@@ -17,18 +18,12 @@ const Drawing = forwardRef(
     },
     ref
   ) => {
-
-    // Handles Colors
-    const [selectedColor, setSelectedColor] = useState("#000");
-    const colors = ["#000", "#FF0000", "#33FF57", "#3357FF", "#F9A825", "#8E24AA", "#fff"];
+    const [selectedColor, setSelectedColor] = useState("#000"); // Default selected color
     const defaultCellColor = "#fff";
 
-    // Handles grid lines
     const [showGridLines, setShowGridLines] = useState(!disableGridLines);
-
     const [enableFill, setFillToggle] = useState(fillToggle);
 
-    // Handles grid
     const getKey = (row, col) => `${row}-${col}`;
 
     const initializeGrid = (initialGrid, rowSize, columnSize, defaultCellColor) => {
@@ -47,7 +42,6 @@ const Drawing = forwardRef(
 
     const [grid, setGrid] = useState(() => initializeGrid(initialGrid, rowSize, columnSize, defaultCellColor));
 
-    // Keeps track of whether the user is pressing and holding
     const [isDrawing, setIsDrawing] = useState(false);
 
     const generateGrid = () => {
@@ -106,13 +100,12 @@ const Drawing = forwardRef(
     
           setGrid(fillGrid); // Update the grid after filling
       } else {
-        const cellKey = getKey(row, col);
-        const newGrid = { ...grid };
-        newGrid[cellKey] = selectedColor;
-        setGrid(newGrid);
+      const cellKey = getKey(row, col);
+      const newGrid = { ...grid };
+      newGrid[cellKey] = selectedColor;
+      setGrid(newGrid);
       }
     };
-    
 
     const handleGlobalMouseUp = () => setIsDrawing(false);
 
@@ -145,115 +138,82 @@ const Drawing = forwardRef(
       }
       setGrid(newGrid);
     };
+
     useImperativeHandle(ref, () => ({
       getGridData: () => grid,
       clearGridData,
     }));
 
     return (
-      <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", gap: "10px" }}>
-        {/* Color palette */}
+      <div className="drawing-box" style={{ display: "flex", flexDirection: "row", justifyContent: "center", gap: "10px" }}>
+        {/* Color picker */}
         {!disableColors && (
           <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-            <div
-              style={{
-                display: "grid",
-                gap: "10px",
-                gridTemplateColumns: "repeat(2, 30px)",
-                alignItems: "flex-start",
-              }}
-            >
-              {colors.map((color) => (
-                <div
-                  key={color}
-                  onClick={() => setSelectedColor(color)}
-                  style={{
-                    width: "30px",
-                    height: "30px",
-                    backgroundColor: color,
-                    cursor: "pointer",
-                    borderRadius: "500%",
-                    border:
-                      selectedColor === color
-                        ? color === "#000"
-                          ? "3px solid #fff"
-                          : "3px solid #000"
-                        : "2px solid #999",
-                    boxShadow: selectedColor === color ? "0px 0px 10px rgba(0,0,0,0.2)" : "none",
-                    transform: selectedColor === color ? "scale(1.4)" : "scale(1)",
-                    transition: "transform 0.2s ease, box-shadow 0.2s ease",
-                  }}
-                />
-              ))}
-            </div>
+            <label>
+              Select Color:
+            </label>
+              <input
+                type="color"
+                value={selectedColor}
+                onChange={(e) => setSelectedColor(e.target.value)}
+                style={{
+                  marginLeft: "10px",
+                  width: "50px",
+                  height: "50px",
+                  border: "none",
+                  cursor: "pointer",
+                }}
+              />
           </div>
         )}
 
-        {/* Grid & Show lines & Clear Grid */}
+        {/* Grid & Controls */}
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-          {/* Grid */}
-          <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: `repeat(${columnSize}, ${cellSize}vw)`,
-                border: "2px solid #000",
-              }}
-            >
-              {generateGrid()}
-            </div>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: `repeat(${columnSize}, ${cellSize}vw)`,
+              border: "2px solid #000",
+            }}
+          >
+            {generateGrid()}
           </div>
-          {/* Controls below Grid */}
           <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "30px", marginTop: "10px" }}>
-            {/* Toggle button for grid lines */}
+            {/* Toggle grid lines */}
             {!disableGridLines && (
-              <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-                <label className="switch">
-                  <span style={{ fontSize: "14px" }}>Show Lines</span>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <label style={{ display: "flex", alignItems: "center", gap: "10px", cursor: "pointer" }}>
+                  Show Grid Lines
                   <input
                     type="checkbox"
                     checked={showGridLines}
                     onChange={() => setShowGridLines((prev) => !prev)}
+                    className="styled-checkbox"
                   />
-                  <span className="slider" />
                 </label>
               </div>
             )}
-            {/* Clear button */}
+            {/* Clear grid */}
             {!disableClearGrid && (
               <button
                 onClick={clearGridData}
-                style={{
-                  fontSize: "13px",
-                  fontFamily: "'JetBrains Mono',monospace",
-                  backgroundColor: "#808080",
-                  transition: "background-color 0.3 ease",
-                }
-              }
-                onMouseOver={(e) => (e.target.style.backgroundColor = "#d32f2f")}
-                onMouseOut={(e) => (e.target.style.backgroundColor = "#808080")}
               >
                 Clear Grid
               </button>
-              
             )}
-      {!disableFill && (
-        <div style={{ display: "flex", justifyContent: "center", gap: "10px", alignItems: "center" }}>
-          {/* Only the icon */}
-          <span
-            style={{
-              cursor: 'pointer', // Make the icon clickable
-              color: enableFill ? "blue" : "gray", // Change color based on state
-              fontSize: '24px', // Set the size of the icon
-            }}
-            onClick={() => setFillToggle((prev) => !prev)} // Toggle fill state on click
-          >
-            <BsPaintBucket />
-          </span>
-          Fill
-        </div>
-      )}
-            
+            {/* Fill toggle */}
+            {!disableFill && (
+              <span
+                style={{
+                  cursor: "pointer",
+                  color: enableFill ? "blue" : "gray",
+                  fontSize: "24px",
+                }}
+                onClick={() => setFillToggle((prev) => !prev)}
+              >
+                <BsPaintBucket />
+              </span>
+            )}
           </div>
         </div>
       </div>

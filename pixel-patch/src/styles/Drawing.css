@@ -41,3 +41,72 @@
     transform: translateX(14px);
   }
   
+
+
+  .drawing-box button {
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    border-radius: 2px;
+    background-color: black;
+    color: #fff;
+    font-family: "JetBrains Mono",monospace;
+    text-transform: uppercase;
+    box-shadow: 0 0 0 3px #000000 inset;
+    height: 45px;
+    line-height: 100%; 
+  }
+  
+  .drawing-box button:hover {
+    color: black;
+    background-color: #fff;
+  }
+
+  .drawing-box label {
+     font-family: "JetBrains Mono",monospace;
+     font-size: 1.1rem;
+   }
+
+
+
+   .drawing-checkbox {
+    font-family: "JetBrains Mono", monospace;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .drawing-checkbox label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .styled-checkbox {
+    width: 20px;
+    height: 20px;
+    appearance: none; /* Removes the default browser styles */
+    background-color: white;
+    border: 2px solid #000;
+    border-radius: 2px;
+    box-shadow: 0 0 0 3px #000 inset;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .styled-checkbox:checked {
+    background-color: white;
+  }
+  
+  .styled-checkbox:checked::after {
+    content: "";
+    display: block;
+    width: 100%; /* Fill the entire checkbox */
+    height: 100%; /* Fill the entire checkbox */
+    background-color: black;
+    border-radius: 2px; /* Same as the checkbox for consistent rounding */
+  }
+  
+
+  
+ 
