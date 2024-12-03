@@ -254,6 +254,19 @@ def edit_post(post_id):
     return jsonify({"message": "Post updated"}), 200
 
 
+@app.route('/user/<int:user_id>', methods=['GET'])
+@jwt_required()
+def get_user(user_id):
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({"message": "User not found"}), 404
+
+    return jsonify({
+        "id": user.id,
+        "username": user.username,
+    }), 200
+
+
 
 # Main function
 if __name__ == '__main__':

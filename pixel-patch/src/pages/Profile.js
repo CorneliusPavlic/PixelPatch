@@ -88,7 +88,7 @@ const Profile = () => {
 
   return (
     <div className="profile-container">
-      <h2>User Profile</h2>
+      <h2>Your Profile</h2>
       <p>{statusMessage || 'Here you can view and update your information, manage posts, and more.'}</p>
 
       {/* Posts List */}

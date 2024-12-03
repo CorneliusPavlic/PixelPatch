@@ -1,41 +1,50 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import api from '../api/api';
 import '../styles/UserProfile.css'; // Add the appropriate styles
 import Drawing from '../components/PixelCreator/Drawing';
 import { useParams } from 'react-router-dom';
 
 const UserProfile = () => {
+  const [user, setUser] = useState(null); // To store user information
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [statusMessage, setStatusMessage] = useState('');
   const { user_id } = useParams();
   console.log('userId:', user_id);
-  // Fetch user posts
+
+  // Fetch user profile and posts
   useEffect(() => {
-    const fetchUserPosts = async () => {
+    const fetchUserProfile = async () => {
       try {
-        
-        const response = await api.get(`/user_posts/${user_id}`, {
+        // Fetch user details
+        const userResponse = await api.get(`/user/${user_id}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },
         });
-        setPosts(response.data);
+        setUser(userResponse.data);
+
+        // Fetch user posts
+        const postsResponse = await api.get(`/user_posts/${user_id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        });
+        setPosts(postsResponse.data);
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching user posts:', error);
-        setStatusMessage('Error retrieving posts.');
+        console.error('Error fetching user profile or posts:', error);
+        setStatusMessage('Error retrieving profile or posts.');
         setLoading(false);
       }
     };
 
-    fetchUserPosts();
+    fetchUserProfile();
   }, [user_id]);
 
   return (
     <div className="user-profile-container">
-      <h2>User Profile</h2>
+      <h2>{user ? `${user.username}'s Profile` : 'Loading Profile...'}</h2>
       {statusMessage && <p>{statusMessage}</p>}
       
       {loading ? (
@@ -58,7 +67,7 @@ const UserProfile = () => {
               />
             </div>
           ))}
-        </div> 
+        </div>
       )}
     </div>
   );
