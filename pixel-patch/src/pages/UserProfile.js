@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import api from '../api/api';
 import '../styles/UserProfile.css'; // Add the appropriate styles
 import Drawing from '../components/PixelCreator/Drawing';
 import { useParams } from 'react-router-dom';
@@ -15,7 +16,7 @@ const UserProfile = () => {
     const fetchUserPosts = async () => {
       try {
         
-        const response = await axios.get(`http://127.0.0.1:5000/user_posts/${user_id}`, {
+        const response = await api.get(`/user_posts/${user_id}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },

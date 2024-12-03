@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import api from '../api/api';
 import '../styles/Profile.css'; // Assuming your CSS is correctly styled
 import Drawing from '../components/PixelCreator/Drawing'; // Make sure this is the correct path
 
@@ -21,7 +22,7 @@ const Profile = () => {
           return;
         }
 
-        const response = await axios.get('http://127.0.0.1:5000/retrieve_user_posts', {
+        const response = await api.get('/retrieve_user_posts', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -43,7 +44,7 @@ const Profile = () => {
   const handleDelete = async (postId) => {
     try {
       const token = localStorage.getItem('accessToken');
-      await axios.delete(`http://127.0.0.1:5000/delete_post/${postId}`, {
+      await api.delete(`/delete_post/${postId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -66,8 +67,8 @@ const Profile = () => {
   const handleSave = async (postId) => {
     try {
       const token = localStorage.getItem('accessToken');
-      await axios.put(
-        `http://127.0.0.1:5000/edit_post/${postId}`,
+      await api.put(
+        `/edit_post/${postId}`,
         { title: newTitle },
         {
           headers: {

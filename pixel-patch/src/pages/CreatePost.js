@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import '../styles/CreatePost.css'; // Assuming styles are in a separate CSS file
 import Drawing from '../components/PixelCreator/Drawing';
 import axios from 'axios';
+import api from '../api/api';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const CreatePost = () => {
@@ -29,8 +30,8 @@ const CreatePost = () => {
         }
 
         // Make POST request to backend
-        const response = await axios.post(
-          'http://127.0.0.1:5000/submitPost',
+        const response = await api.post(
+          '/submitPost',
           {
             title,
             dataSend: gridData,
@@ -58,16 +59,6 @@ const CreatePost = () => {
     } else {
       setStatusMessage('Error with canvas reference.');
     }
-  };
-
-  const handleArchive = () => {
-    setStatusMessage('Post saved to archive.');
-    clearCanvas();
-  };
-
-  const handleDelete = () => {
-    setStatusMessage('Post successfully deleted.');
-    clearCanvas();
   };
 
   const clearCanvas = () => {

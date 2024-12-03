@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios'; // Ensure axios is installed
 import '../styles/Home.css';
 import '../styles/theme.css'; 
+import api from '../api/api';
 import { Link } from 'react-router-dom';  // Add this to handle navigation
 import logo from '../assets/logoNoBorder.png';
 import Drawing from '../components/PixelCreator/Drawing';
@@ -17,8 +18,8 @@ const Home = () => {
     if (loading || !hasMore) return;
     setLoading(true);
     try {
-      const response = await axios.get(
-        `http://127.0.0.1:5000/retrieve_posts?page=${page}&per_page=10`, // Adjust per_page if needed
+      const response = await api.get(
+        `/retrieve_posts?page=${page}&per_page=10`, // Adjust per_page if needed
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` }, // Assuming you're storing the token in localStorage
         }

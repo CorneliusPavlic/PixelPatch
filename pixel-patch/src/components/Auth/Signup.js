@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import axios from 'axios'; // Axios for API calls
+import api from '../../api/api';
 import '../../styles/Auth.css';
 import '../../styles/theme.css'; 
 
@@ -24,7 +25,7 @@ const Signup = () => {
     }
 
     try {
-      const response = await axios.post('http://127.0.0.1:5000/signup', {
+      const response = await api.post('/signup', {
         username,
         email,
         password,

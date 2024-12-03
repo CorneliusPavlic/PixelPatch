@@ -15,6 +15,9 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'  # Change to MySQL if needed
 app.config['SECRET_KEY'] = 'your_secret_key'
 app.config['JWT_SECRET_KEY'] = 'eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTczMjU1NjcxMSwiaWF0IjoxNzMyNTU2NzExfQ.oQqCPZWH0Ukkxz6trD4oajwiT0B0qYO6P7STTjHneT0'
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = 900  # Access token expires in 15 minutes
+app.config['JWT_REFRESH_TOKEN_EXPIRES'] = 2592000  # Refresh token expires in 30 days
+
 
 db = SQLAlchemy(app)
 jwt = JWTManager(app)
@@ -70,9 +73,23 @@ def login():
     user = User.query.filter_by(username=username).first()
     if user and check_password_hash(user.password, password):
         access_token = create_access_token(identity=user.id)
-        return jsonify({"access_token": access_token}), 200
+        refresh_token = create_access_token(identity=user.id, fresh=True)  # Long-lived refresh token
+        return jsonify({
+            "access_token": access_token,
+            "refresh_token": refresh_token
+        }), 200
 
     return jsonify({"message": "Invalid username or password"}), 401
+
+
+@app.route('/refresh', methods=['POST'])
+@jwt_required(refresh=True)
+def refresh():
+    current_user = get_jwt_identity()
+    new_access_token = create_access_token(identity=current_user)
+    return jsonify({
+        "access_token": new_access_token
+    }), 200
 
 
 @app.route('/submitPost', methods=['POST'])

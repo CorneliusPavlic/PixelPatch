@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import axios from 'axios'; // Import Axios for API requests
+import api from '../../api/api';
 import '../../styles/Auth.css';
 import '../../styles/theme.css'; 
 
@@ -17,7 +18,7 @@ const Login = () => {
     setSuccess('');
 
     try {
-      const response = await axios.post('http://127.0.0.1:5000/login', {
+      const response = await api.post('/login', {
         username,
         password,
       });

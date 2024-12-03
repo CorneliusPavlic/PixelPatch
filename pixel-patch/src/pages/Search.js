@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import api from '../api/api';
 import '../styles/Search.css'; // Add styles for the search page
 import Drawing from '../components/PixelCreator/Drawing';
 import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
@@ -28,7 +29,7 @@ const Search = () => {
     setResults([]);
 
     try {
-      const response = await axios.get(`http://127.0.0.1:5000/search`, {
+      const response = await api.get(`/search`, {
         params: { query: queryParam },
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
