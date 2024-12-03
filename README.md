@@ -21,4 +21,4 @@ pip install -r requirements.txt
 ```bash
 python app.py
 ```
-## 3. Go to the window the site is runningand you're good to go!!
+## 3. Go to the window the site is running in, and you're good to go!!
